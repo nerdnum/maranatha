@@ -1,0 +1,58 @@
+{% extends '_user_base.html' %}
+
+{% from '_macros.html' import render_field, render_submit_field, render_span_checkbox_field, create_confirmation_modal %}
+
+{% block userform %}
+    <div class="content-section">
+    <h4>My Profile</h4>
+    <form id="profile" method="POST" action="">
+    {{ form.hidden_tag() }}
+    <div class="row">
+        {{ render_field(form.email, class_="col-md-6 col-sm-12", tabindex=10 ) }}
+
+        {{ render_field(form.mobile_phone, tabindex=20,
+                        class_="col-md-6 col-sm-12",
+                        note="International phone number format: +264811234567") }}
+
+        {{ render_field(form.first_name, class_="col-md-6 col-sm-12", tabindex=30 ) }}
+
+        {{ render_field(form.last_name, class_="col-md-6 col-sm-12", tabindex=40 ) }}
+
+        {{ render_field(form.country_id, class_="col-md-4 col-sm-12") }}
+
+        {{ render_field(form.subdivision_id, class_="col-md-4 col-sm-12") }}
+
+        {{ render_field(form.populated_area_id, class_="col-md-4 col-sm-12") }}
+
+        <div class="col-md-6">
+        <table class="ml-2">
+        <tr>
+            <td><div><label>Receive prayer requests by</label></div></td>
+            <td>{{ render_span_checkbox_field(form.prayer_requests_by_email, tabindex=50, class_="ml-2" ) }}</td>
+        <td>{{ render_span_checkbox_field(form.prayer_requests_by_sms, tabindex=60, class_="ml-2" ) }}</td>
+        </tr>
+        </table>
+        </div><br>
+
+
+        {{ render_submit_field(form.submit, class_="col-12 mt-2", tabindex=100) }}
+
+
+
+    </div>
+    </form>
+        <div><a  href="{{ url_for('users.change_password') }}">Change password</a><br>
+        <a id="unsubscribe"  href="" data-toggle="modal" data-target="#unsubscribeModal">Unsubscribe</a>
+    </div>
+
+    {{ create_confirmation_modal("unsubscribeModal", "Are you sure you want to unsubscribe?",
+                            url_for('users.unsubscribe'), "Yes, unsubscribe", form.hidden_tag()) }}
+
+{% endblock userform %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        var csrf_token = "{{ csrf_token() }}";
+    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/utils.js') }}"></script>
+{% endblock scripts %}

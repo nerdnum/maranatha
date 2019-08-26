@@ -1,0 +1,53 @@
+{% extends '_user_base.html' %}
+
+{% from '_macros.html' import render_field, render_submit_field %}
+
+{% block userform %}
+    <div class="col-md-8 col-xs-12 m-auto content-section">
+    <h4>Register</h4>
+
+    <div class="col-12">
+            <p>Dear Friend and Believer in Jesus Christ</p>
+
+            <p>You have reached this page because somebody believes that you would want to join
+                a coordinated effort to pray for Namibia.</p>
+
+            <p>One of our friends received an instruction from the Lord Jesus to bring together a group of at least 1000
+                people to pray for our country Namibia. He discussed this with a group of trusted friends and they agreed that
+                this was indeed an instruction from the Lord. This team is now working to assemble a network of at least 1000
+                praying individuals. We are however hoping that many more people will eventually join this network.</p>
+
+            <p>The Lord also instructed us that this network should consists of groups of twelve. Every prayer (praying
+                individual) will be a member of a group of twelve, but each member will also aim to invite eleven more people
+                into the prayer network, making another group of twelve.</p>
+
+            <p>This is what you are signing up for.</p>
+            <ol>
+                <li>To pray for Namibia as the Holy Spirit leads you.</li>
+                <li>To pray according to the prayer requests that the network will send to you from time to time.</li>
+                <li>To recruit more people to pray for the country by first speaking to them and then using the
+                    "Send an invitation" function of the website to finalise the recruitment.</li>
+                <li>Stay connected with the people in your immediate network, through messaging, getting together
+                    for coffee and telephone conversations with the aim to motivate one another to pray.</li>
+            </ol>
+
+            <p>Signing up to join this network is completely voluntary. Please do not join if you
+                feel pressured. Only join if you truly feel in your heart that you should be part of this network.</p>
+        </div>
+
+    <form id="register" method="POST" action="">
+    {{ form.hidden_tag() }}
+    <div class="row">
+        {{ render_field(form.login, tabindex=10,
+                        class_="col-12",
+                        note="International phone number format: +264811234567") }}
+    </div>
+    <div class="row">
+        {{ render_field(form.password, class_="col-12", tabindex=20 ) }}
+        {{ render_field(form.password_confirm, class_="col-12", tabindex=30) }}
+    </div>
+
+        {{ render_submit_field(form.submit, tabindex=40) }}
+    </form>
+    </div>
+{% endblock userform %}

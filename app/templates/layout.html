@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- These 3 meta tags MUST come first -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- These 3 meta tags MUST come first -->
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+
+    {% if title %}
+    <title>Maranatha Namibia - {{ title }}</title>
+    {% else %}
+        <title>Maranatha Namibia</title>
+    {% endif %}
+
+
+</head>
+<body>
+{% block body %}
+    <!-- Application specific HTML -->
+{% block header %}
+    <header class="site-header">
+        <nav class="navbar navbar-expand-lg navbar-light bg-primary fixed-top">
+            <div class="container">
+                <a class="navbar-brand text-light" href="{{ url_for('main.home') }}">Maranatha Namibia</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('main.home') }}">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        {% if current_user.is_authenticated %}
+                        <li class="nav-item dropdown">
+
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                My Team
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{{ url_for('users.team_members') }}">View my network</a>
+                                <a class="dropdown-item" href="{{ url_for('users.invite_user') }}">Send an invitation</a>
+                            </div>
+                        </li>
+                        {% endif %}
+                        {% if current_user.is_authenticated %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Messages
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" href="{{ url_for('messages.view_messages') }}">View broadcast messages</a>
+                                    <a class="dropdown-item" href="{{ url_for('messages.view_messages', private=1, id=current_user.id) }}">View private messages</a>
+                                    {% if current_user.has_role('messenger') %}
+                                        <a class="dropdown-item" href="{{ url_for('messages.create_message') }}">Create a new broadcast message</a>
+                                    {% endif %}
+                                </div>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('messages.view_messages') }}">Messages <span class="sr-only"></span></a>
+                            </li>
+                        {% endif %}
+
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        {% if current_user.is_authenticated %}
+                        {% if current_user.has_role('admin') %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('users.admin_view') }}">Admin <span class="sr-only"></span></a>
+                            </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('users.profile') }}">My Profile <span class="sr-only"></span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('users.logout') }}">Logout <span class="sr-only"></span></a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('users.login') }}">Login <span class="sr-only"></span></a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+</header>
+
+{% endblock header %}
+
+{% block precontent %}{% endblock precontent %}
+
+<main id="main_content">
+{% block content %}{% endblock content %}
+</main>
+
+{% block postcontent %}{% endblock postcontent %}
+
+{% block footer %}
+    <div id="footer-div " class="container">
+        <hr class="no-margins"/>
+        <div class="float-left">v0.1</div>
+        <div class="float-right">&copy; 2019 Maranatha Namibia</div>
+    </div>
+{% endblock footer %}
+
+{% endblock body %}
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+
+{% block scripts %}
+{% endblock scripts %}
+
+</body>
+</html>

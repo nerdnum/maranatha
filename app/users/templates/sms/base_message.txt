@@ -1,0 +1,4 @@
+Hi,{% block message %}
+{% endblock %}
+Sincerely,
+{{ app_name }}

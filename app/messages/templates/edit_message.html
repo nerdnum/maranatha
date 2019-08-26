@@ -1,0 +1,13 @@
+{% extends '_messages_base.html' %}
+
+{% block content %}
+    <div class="content-section">
+    {% from "_macros.html" import render_field, render_submit_field, render_radio_field %}
+    <form action="" method="POST" class="form" role="form">
+        {{ form.hidden_tag() }}
+        {{ render_field(form.subject) }}
+        {{ render_field(form.content) }}
+        {{ render_submit_field(form.submit) }}
+    </form>
+    </div>
+{% endblock content %}

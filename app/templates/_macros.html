@@ -1,0 +1,99 @@
+{% macro render_field(field, tabindex=None, note=None, forgot_password=None) %}
+    <div class="form-group {{ kwargs.pop('class_', '') }}">
+        {{ field.label(class="from-control-label mb-0") }}
+        {% if field.label.text == "Password" and forgot_password %}
+            <span class="float-right">
+                <a href="{{ url_for('users.forgot_password') }}"
+                {% if tabindex %}tabindex="{{ tabindex + 5 }}"{% endif %}
+                >Forgot password</a>
+            </span>
+        {% endif %}
+        {%  if field.errors %}
+            {{ field(class="form-control is-invalid", tabindex=tabindex) }}
+            <div class="invalid-feedback">
+                {% for error in field.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% elif note %}
+            {{ field(class="form-control", tabindex=tabindex) }}
+            <div class="">
+                    <span><small>{{ note }}</small></span>
+            </div>
+        {% else %}
+            {{ field(class="form-control", tabindex=tabindex) }}
+        {% endif %}
+    </div>
+{% endmacro %}
+
+
+{% macro render_submit_field(field, tabindex=None) %}
+    <div class="form-group {{ kwargs.pop('class_', '') }}">
+    <input type="submit" class="btn btn-default btn-primary"
+            value="{{ field.label.text }}"
+           {% if tabindex %} tabindex="{{ tabindex }}"{% endif %}>
+    </div>
+{% endmacro %}
+
+{% macro render_checkbox_field(field, label=None, tabindex=None, class_=None) %}
+    <div class="form-group {{ class_ }}">
+    {% if not label %}{% set label=field.label.text %}{% endif %}
+    <div class="checkbox" {% if tabindex %} tabindex="{{ tabindex }}"{% endif %}>
+        <label>
+            {{ field(type='checkbox', **kwargs) }} {{ label }}
+        </label>
+    </div>
+    </div>
+{% endmacro %}
+
+{% macro render_span_checkbox_field(field, label=None, tabindex=None, class_=None) %}
+    {% if not label %}{% set label=field.label.text %}{% endif %}
+    <div class="checkbox" {% if tabindex %} tabindex="{{ tabindex }}"{% endif %}>
+        <label class="{{ class_ }}">
+            {{ field(type='checkbox') }} {{ label }}
+        </label>
+    </div>
+{% endmacro %}
+
+
+{% macro create_confirmation_modal(model_name, model_heading, action_url, confirm_value, csrf_token)  %}
+     <div class="modal fade" id="{{ model_name }}" tabindex="-1" role="dialog" aria-labelledby="{{ model_name }}" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="{{ modal_name }}Label">{{ model_heading }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <form action="{{ action_url }}" method="POST">
+                        {{ csrf_token }}
+                        <input id="{{ model_name }}_submit" type="submit" class="btn btn-danger" value="{{ confirm_value }}">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+
+{% macro render_flash() %}
+    {% block flash_messages %}
+        {%- with messages = get_flashed_messages(with_categories=true) -%}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category=='message' %}
+                       {% set category='info' %}
+                    {% elif category=='error' %}
+                       {% set category='danger' %}
+                    {% endif %}
+                    <div class="alert alert-{{category}} alert-dismissable">{{ message|safe }}
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {%- endwith %}
+    {% endblock %}
+{% endmacro %}

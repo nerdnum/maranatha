@@ -1,0 +1,35 @@
+{% extends '_geo_base.html' %}
+
+{% block geo_content %}
+    <h3>Country subdivisions</h3>
+    <p class="mt-4">Click on a subdivision name to update of delete the item</p>
+    <a class="btn btn-primary mb-2"
+       href="{{ url_for('geo.create_subdivision') }}">Add a subdivision</a>
+    <a class="btn btn-primary ml-2 mb-2"
+       href="{{ url_for('geo.subdivision_types') }}">Manage subdivision types</a>
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">ISO 3166-2 Code</th>
+                    <th scope="col">Division Type</th>
+                    <th scope="col">Country</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for subdivision in subdivisions %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td><a href="{{ url_for('geo.update_subdivision', id=subdivision.id) }}">
+                            {{ subdivision.name }}
+                        </a></td>
+                        <td>{{ subdivision.iso_3166_2_code }}</td>
+                        <td>{{ subdivision.division_type }}</td>
+                        <td>{{ subdivision.country}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+{% endblock geo_content %}

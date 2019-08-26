@@ -1,0 +1,32 @@
+{% extends 'geo_base.html' %}
+
+{% block content %}
+    <h3>Populated Areas</h3>
+    <p class="mt-4">Click on the name of a populated are to manage its attributes</p>
+    <a class="btn btn-primary mb-2"
+       href="{{ url_for('geo.create_populated_area') }}">Add a new populated area</a>
+    <a class="btn btn-primary mb-2 ml-2"
+       href="{{ url_for('geo.populated_area_types') }}">Manage populated area types</a>
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Subdivision</th>
+                    <th scope="col">Country</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for area in areas %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td><a href="{{ url_for('geo.update_populated_area', id=area.id) }}">{{ area.name }}</a></td>
+                        <td>{{ area.populated_area_type }}</td>
+                        <td>{{ area.subdivision }}</td>
+                        <td>{{ area.country }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+{% endblock content %}

@@ -1,0 +1,35 @@
+{% extends '_messages_base.html' %}
+
+{% block messages %}
+    <div>
+    <h3>Messages</h3>
+    </div>
+    <div>
+    {% if messages %}
+    {% for message in messages %}
+        <article class="media content-section">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="{{ url_for('messages.view_messages', private=private, id=message.author.id) }}">
+                        {{ message.author.first_name }} {{ message.author.last_name }}</a>
+                    <small class="text-muted">{{ message.created_at.strftime('%Y/%m/%d %H:%M') }}</small>
+                </div>
+                {% if message.author.id == current_user.id %}
+                    <h3><a class="article-title"
+                           href="{{ url_for('messages.edit_message', id=message.id) }}">{{ message.subject }}</a></h3>
+                {% else %}
+                    <h3 class="article-title">{{ message.subject }}</h3>
+                {% endif %}
+                <p class="article-content">{{ message.content }}</p>
+            </div>
+        </article>
+     {% endfor %}
+     </div>
+    {% else %}
+        <div>
+        <div class="content-section">
+            <p>You do not have any private messages at present.</p>
+        </div>
+        </div>
+    {% endif %}
+{% endblock messages %}

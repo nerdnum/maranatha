@@ -1,0 +1,29 @@
+{% extends '_geo_base.html' %}
+
+{% block geo_content %}
+    <h3>Country subdivision types</h3>
+    {% if subdivision_types|length != 0 %}
+        <p class="mt-4">Click on a subdivision type name to update or delete it</p>
+        <a class="btn btn-primary mb-2"
+           href="{{ url_for('geo.create_subdivision_type') }}">Create subdivision</a>
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for subdivision in subdivision_types %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td><a href="{{ url_for('geo.update_subdivision_type', id=subdivision.id) }}">{{ subdivision.name }}</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No country subdivision are currently available</p>
+        <a class="btn btn-primary" href="{{ url_for('geo.create_subdivision_type') }}">Create subdivision</a>
+    {% endif %}
+{% endblock geo_content %}

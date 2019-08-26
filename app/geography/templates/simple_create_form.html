@@ -1,0 +1,86 @@
+{% extends '_geo_base.html' %}
+
+{% block geo_content %}
+    {% from "_macros.html" import render_field, render_submit_field %}
+    <h3>{{ title }}</h3>
+    <form action="" method="POST">
+        {{ form.hidden_tag() }}
+        {% for field in form %}
+            {% if not field.flags.hidden %}
+                {% if field.type=='SubmitField' %}
+                    {{ render_submit_field(field, tabindex=loop.index*10) }}
+                    {% if update %}
+                        <button type="button" class="btn btn-danger m-1" data-toggle="modal"
+                                data-target="#deleteModal">Delete</button>
+                    {% endif %}
+                {% else %}
+                    {{ render_field(field, tabindex=loop.index*10) }}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </form>
+
+    {% if update %}
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
+         aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Delete item?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <form action="{{ delete_url }}" method="POST">
+                        {{ form.hidden_tag() }}
+                        <input type="submit" class="btn btn-danger" value="Delete">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+
+{% endblock geo_content %}
+
+{% block scripts %}
+    {% if 'populated' in title %}
+        <script type="text/javascript">
+            var csrf_token = "{{ csrf_token() }}";
+
+            $.ajaxSetup({
+                beforeSend: function(xhr, settings) {
+                    if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrf_token);
+                    }
+                }
+            });
+
+            $('#country_id').change(function(event){
+                var selected = $('#country_id option:selected').val();
+                $.ajax({
+                    type: 'POST',
+                    url: '/geo/subdivisions_by_country/' + selected,
+                    success: function(data){
+
+                        $('#subdivision_id').children().remove()
+                        var choices = data.choices;
+
+                        if (choices.length == 1){
+                            $('#subdivision_id').append("<option value=''>" + data.choices[0] + "</option>");
+                            $('label[for=subdivision_id]').text(data.division_type)
+                        } else {
+                            var choices = data.choices;
+                            for (i=0; i < choices.length; i++){
+                                $('#subdivision_id').append("<option value='"+  data.choices[i].id +"'>"
+                                    + data.choices[i].name + "</option>")
+                            }
+                        }
+                    }
+                })});
+        </script>
+    {% endif %}
+{% endblock %}

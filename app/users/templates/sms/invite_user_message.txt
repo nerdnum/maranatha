@@ -1,0 +1,6 @@
+{% extends 'sms/base_message.txt' %}
+{% block message %}
+A password reset request has been submitted on the {{ app_name }} site.
+If it was not you, please ignore this message, otherwise, click on the link below to reset your password.
+{{ reset_link }}
+{% endblock %}

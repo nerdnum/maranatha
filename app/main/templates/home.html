@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    {% from '_macros.html' import render_flash %}
+    <div class="container content-section">
+        {{ render_flash() }}
+         <h3>The Calling</h3>
+
+    <img class="w-100" src="{{ url_for('static', filename='images/kalahari.png') }}">
+    <p class="mt-2">Namibia is a country in spiritual, moral, natural and economic crisis. It is for this reason that the Lord Jesus
+        through his Holy Spirit is calling up Namibians to pray.</p>
+
+
+
+    <p>The Bible teaches us that when the nation Israel turned away from the Lord YHWH, they suffered much. They lost their
+        freedom and were oppressed by other nations. They lost their wealth. They also suffered droughts and natural disasters.
+        All of this was a consequence of sin.</p>
+    <p>If we look honestly at our country, we can say that all of this is true.
+        However,
+        <em>"...if my people who are called by my name humble themselves, and pray and seek my face and turn from their
+        wicked ways, then I will hear from heaven and will forgive their sin and heal their land."</em>
+        <span class="text-muted"> (2 Chronicles 7:14, ESV)</span></p>
+
+    <p>According to this scripture we need to do at least these three things.
+    <ol>
+        <li>Humble ourselves</li>
+        <li>Pray</li>
+        <li>Seek God's face</li>
+        <li>Turn from our wicked ways</li>
+    </ol>
+    </p>
+    <p>We like to put blame and criticize, but <i>"Why do you look at the speck of sawdust in your brother’s eye and
+        pay no attention to the plank in your own eye? How can you say to your brother, ‘Brother, let me take
+        the speck out of your eye,’ when you yourself fail to see the plank in your own eye? You hypocrite,
+        first take the plank out of your eye, and then you will see clearly to remove the speck from your
+        brother’s eye."</i><span class="text-muted"> (Luke 6:40-42, NIV)</span></p>
+
+    <p>As our only clear instruction at this time is to gather 1000 people to pray, our call is to our fellow
+        Christians is this. Let us consecrate and cleanse ourselves, the same way that the
+        Israelites did when they prepared to meet with the Lord YHWH at Mount Sinai (Ex 19:10). Let the Holy Spirit
+        guide you in the how you should do this personally. Let each of us get ready, so that when the time
+        comes, we can go to the mountain and meet with out God, face to face, to intercede for Namibia.
+    </p>
+    </div>
+{% endblock content %}

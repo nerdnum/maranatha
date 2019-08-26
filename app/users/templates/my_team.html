@@ -1,0 +1,167 @@
+{% extends 'layout.html' %} {# main_base.html extends layout.html #}
+
+{% block main %}
+{% block content %}
+    <div class="container content-section">
+
+    <h3 class="mb-3">My Prayer Network</h3>
+
+    {% if partners|length > 0 %}
+        <h4>Partners</h4>
+        <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col" class="">#</th>
+                <th scope="col"><input type="checkbox" name="all_partners" id="all_partners"></th>
+                <th scope="col" class="col-sm-3">Name</th>
+                <th scope="col" class="col-sm-3">Email</th>
+                <th scope="col" class="col-sm-6">Mobile Phone</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for person in partners %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td><input id="partner_{{ person.id }}"  type="checkbox" name="{{ person.id }}"></td>
+                    <td>{{ person.first_name }} {{ person.last_name }}
+                        {% if person.id == enlister.id %}(Coordinator){% endif %}</td>
+                    <td>{% if person.mobile_phone %}{{ person.email }}{% else %}-{% endif %}</td>
+                    <td>{% if person.mobile_phone %}{{ person.mobile_phone }}{% else %}-{% endif %}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+
+    <h4 class="mb-2">Team</h4>
+    {% if enlistees|length > 0 %}
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col" class="">#</th>
+                <th scope="col"><input type="checkbox" name="all_members" id="all_members"></th>
+                <th scope="col" class="col-sm-3">Name</th>
+                <th scope="col" class="col-sm-3">Email</th>
+                <th scope="col" class="col-sm-6">Mobile Phone</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for person in enlistees %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td><input id="member_{{ person.id }}"  type="checkbox" name="{{ person.id }}"></td>
+                    <td>{% if person.first_name and person.last_name %}
+                            {{ person.first_name }} {{ person.last_name }}
+                        {% elif person.first_name %}
+                            {{ person.first_name }}
+                        {% elif  person.last_name %}
+                            {{ person.last_name }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                    <td>{% if person.email %}{{ person.email }}{% else %}-{% endif %}</td>
+                    <td>{% if person.mobile_phone %}{{ person.mobile_phone }}{% else %}-{% endif %}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No one</p>
+    {% endif %}
+
+    {% from "_macros.html" import render_field, render_submit_field %}
+
+    <div id="message_form" style="display: none">
+        <hr>
+        <div class="col-sm-12 col-md-6">
+            <form action="" method="POST" class="from-control">
+                {{ form.hidden_tag() }}
+                {{ render_field(form.user_list) }}
+                {{ render_field(form.subject) }}
+                {{ render_field(form.content) }}
+                {{ render_submit_field(form.submit) }}
+            </form>
+        </div>
+    </div>
+
+    </div>
+{% endblock %}
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        function is_all_checked(prefix) {
+            var allCheck = true;
+            $("input[id^='" + prefix + "']").each(
+                function(){
+                    if(!$(this).is(':checked')) {
+                        allCheck = false;
+                    }
+                }
+            );
+            return allCheck;
+        };
+
+        function get_checked() {
+            var check_list = [];
+            $("input[id^='partner']").each(
+                function(){
+                    if($(this).is(':checked')) {
+                        check_list.push($(this).prop('name'));
+                    }
+                }
+            );
+            $("input[id^='member']").each(
+                function(){
+                    if($(this).is(':checked')) {
+                        check_list.push($(this).prop('name'));
+                    }
+                }
+            );
+            return check_list;
+        };
+
+        function manage_form(){
+            var check_list = get_checked();
+            if (check_list.length > 0){
+                $('#message_form').show();
+                $('#user_list').val(check_list.toString());
+            } else {
+                $('#message_form').hide();
+            }
+        }
+
+        $("#all_partners").change(function(event){
+            var checked = $('#all_partners').is(':checked');
+            $("input[id^='partner']").prop('checked', checked);
+            manage_form();
+        });
+
+        $("input[id^='partner']").change(function(event){
+            if(is_all_checked('partner')) {
+                $('#all_partners').prop('checked', true);
+            } else {
+                $('#all_partners').prop('checked', false);
+            };
+            manage_form();
+        });
+
+        $("#all_members").change(function(event){
+            var checked = $('#all_members').is(':checked');
+            $("input[id^='member']").prop('checked', checked);
+            manage_form();
+        });
+
+        $("input[id^='member']").change(function(event){
+            if(is_all_checked('member')) {
+                $('#all_members').prop('checked', true);
+            } else {
+                $('#all_members').prop('checked', false);
+            }
+            manage_form();
+        });
+
+    </script>
+{% endblock %}

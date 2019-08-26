@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    {% from '_macros.html' import render_flash %}
+    <div id="content" class="container col-md-6 col-xs-12">
+        {{ render_flash() }}
+        {% block userform %}
+        {% endblock userform %}
+    </div>
+{% endblock content %}

@@ -1,0 +1,18 @@
+{% extends '_geo_base.html' %}
+
+{% block geo_content %}
+    {% from "_macros.html" import render_field, render_submit_field %}
+    <h3>Update country data</h3>
+    <form action="" method="POST">
+        {{ form.hidden_tag() }}
+        {% for field in form %}
+            {% if not field.flags.hidden %}
+                {% if field.type=='SubmitField' %}
+                    {{ render_submit_field(field, tabindex=loop.index*10) }}
+                {% else %}
+                    {{ render_field(field, tabindex=loop.index*10) }}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </form>
+{% endblock geo_content %}

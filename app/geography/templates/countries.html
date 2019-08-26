@@ -1,0 +1,28 @@
+{% extends '_geo_base.html' %}
+
+{% block geo_content %}
+    <h3>Countries</h3>
+    <p>Click on a country name to manage the country attributes</p>
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Alpha 2 Code</th>
+                    <th scope="col">Alpha 3 Code</th>
+                    <th scope="col">Iso Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for country in countries %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td><a href="{{ url_for('geo.country_update', id=country.id) }}">{{ country.name }}</a></td>
+                        <td>{{ country.iso_alpha_2_code }}</td>
+                        <td>{{ country.iso_alpha_3_code }}</td>
+                        <td>{{ country.iso_number_code }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+{% endblock geo_content %}

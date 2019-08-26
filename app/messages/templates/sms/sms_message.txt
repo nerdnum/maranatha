@@ -1,0 +1,4 @@
+{% block sms_content %}
+You have a new message from Maranatha Namibia. To view the message click on the link below.
+{{ link }}
+{% endblock sms_content %}
