@@ -55,7 +55,8 @@ def create_message():
         db.session.add(message)
         db.session.commit()
         message_id = message.id
-        send_broadcast_messages(message_id)
+        if form.is_urgent.data:
+            send_broadcast_messages(message_id)
         return redirect(url_for('messages.view_messages'))
     return render_template('create_message.html', form=form)
 
