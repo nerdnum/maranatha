@@ -61,6 +61,9 @@ def create_app():
     from app.messages.views import messages
     app.register_blueprint(messages)
 
+    from app.errors.handlers import errors
+    app.register_blueprint(errors)
+
     add_admin_views()
 
     return app
