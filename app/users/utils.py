@@ -26,12 +26,7 @@ def send_invitation(login, current_user):
         send_bulk_mail([login], sender, '{} invitation'.format(app_name),
                        message_html=message_html)
     else:
-
-        if app.config['DEBUG']:
-            accept_invitation_link = "{}{}".format(app.config['NGROK'],
-                                                   url_for('users.register_with_token', token=token))
-        else:
-            accept_invitation_link = url_for('users.register_with_token', token=token,
+        accept_invitation_link = url_for('users.register_with_token', token=token,
                                              _external=True)
         message_body = render_template('sms/invite_user_message.txt',
                                        user=current_user,

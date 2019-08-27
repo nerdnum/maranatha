@@ -1,6 +1,6 @@
 {% extends 'sms/base_message.txt' %}
 {% block message %}
-A password reset request has been submitted on the {{ app_name }} site.
-If it was not you, please ignore this message, otherwise, click on the link below to reset your password.
-{{ reset_link }}
+{{ user.first_name }} {{ user.last_name }} is inviting you to join the Maranatha Namibia prayer network.
+To register, please click on the link below and use your mobile number for your login:
+{{ accept_invitation_link }}
 {% endblock %}
