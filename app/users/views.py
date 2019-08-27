@@ -1,5 +1,4 @@
 from app import bcrypt, db
-from app.geography.models import Country, Subdivision, PopulatedArea
 from app.geography.utils import country_query, subdivision_by_country_query, populated_area_by_subdivision_query
 from app.messages.forms import MessageForm
 from app.messages.models import Message, UserMessage

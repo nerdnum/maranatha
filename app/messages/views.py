@@ -4,7 +4,7 @@ from app.messages.forms import MessageForm
 from app.messages.models import Message, UserMessage
 from app.messages.utils import send_broadcast_messages
 
-from flask import Blueprint, render_template, redirect, url_for, request
+from flask import Blueprint, render_template, redirect, url_for, request, Markup
 from flask_login import current_user, login_required
 
 
@@ -28,7 +28,7 @@ def view_messages(private=None, id=None):
                 .order_by(Message.created_at.desc()).all()
     else:
         if id:
-            messages = db.session.query(Message).filter(Message.is_private ==  False)\
+            messages = db.session.query(Message).filter(Message.is_private == False)\
                 .filter(Message.created_by == id)\
                 .order_by(Message.created_at.desc()).all()
         else:
