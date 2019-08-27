@@ -13,7 +13,7 @@ from datetime import datetime
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask import current_app as app
 from flask_login import logout_user, login_user, login_required, current_user
-from sqlalchemy import or_, and_
+from sqlalchemy import or_, and_, func
 
 users = Blueprint('users', __name__, template_folder='templates')
 
@@ -23,7 +23,7 @@ def register():
     form = RegisterForm()
     if form.validate_on_submit():
         user = User.query.filter(or_(
-            User.mobile_phone == form.login.data, User.email == form.login.data)).first()
+            User.mobile_phone == form.login.data, func.lower(User.email) == func.lower(form.login.data))).first()
         if not user:
             hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
             user = User(password=hashed_password, is_active=True, user_confirmed_at=datetime.utcnow())
@@ -47,7 +47,7 @@ def register_with_token(token):
     token_manager = TokenManager(app)
     invited_by_id, login = token_manager.verify_token(token, expiration_in_seconds=app.config['INVITE_EXPIRATION_TIME'])
     if form.validate_on_submit():
-        if form.login.data != login:
+        if form.login.data.lower() != login.lower():
             flash('The login you used is invalid for this invitation or this invitation has expired.')
         else:
             user = User.query.filter(or_(

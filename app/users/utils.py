@@ -1,14 +1,14 @@
 from app.token_manager import TokenManager
-from app.utils import is_valid_email, send_bulk_mail, send_sms, send_bulk_mail
+from app.utils import is_valid_email, send_sms, send_bulk_mail
 from flask import render_template, url_for
 from flask import current_app as app
 from app.users.models import User
-from sqlalchemy import or_
+from sqlalchemy import or_, func
 
 
 def get_user_by_login(submitted_login):
     user = User.query.filter(or_(
-        User.mobile_phone == submitted_login, User.email == submitted_login)).first()
+        User.mobile_phone == submitted_login, func.lower(User.email) == func.lower(submitted_login))).first()
     return user
 
 

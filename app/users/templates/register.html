@@ -3,7 +3,7 @@
 {% from '_macros.html' import render_field, render_submit_field %}
 
 {% block userform %}
-    <div class="col-md-8 col-xs-12 m-auto content-section">
+    <div class="col-md-10 col-sm-12 m-auto content-section">
     <h4>Register</h4>
 
     <div class="col-12">
@@ -35,6 +35,8 @@
                 feel pressured. Only join if you truly feel in your heart that you should be part of this network.</p>
         </div>
 
+    <div class="col-md-8 col-sm-12 m-auto">
+
     <form id="register" method="POST" action="">
     {{ form.hidden_tag() }}
     <div class="row">
@@ -49,5 +51,6 @@
 
         {{ render_submit_field(form.submit, tabindex=40) }}
     </form>
+        </div>
     </div>
 {% endblock userform %}
