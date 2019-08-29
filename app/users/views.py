@@ -105,12 +105,14 @@ def profile():
         form = UserProfileForm()
         initialise_profile_form(form)
     if form.validate_on_submit():
-        duplicate_phone_user = User.query.filter(
-            and_(User.mobile_phone == form.mobile_phone.data, User.id != current_user.id))\
-            .first()
-        duplicate_email_user = User.query.filter(
-            and_(User.email == form.email.data, User.id != current_user.id))\
-            .first()
+        if form.mobile_phone.data.strip() is not None:
+            duplicate_phone_user = User.query.filter(
+                and_(User.mobile_phone == form.mobile_phone.data, User.id != current_user.id))\
+                .first()
+        if form.email.data.strip() is not None:
+            duplicate_email_user = User.query.filter(
+                and_(User.email == form.email.data, User.id != current_user.id))\
+                .first()
         if duplicate_phone_user:
             flash_message = "That phone number is already used by another user."
         elif duplicate_email_user:
