@@ -105,19 +105,22 @@ def profile():
         form = UserProfileForm()
         initialise_profile_form(form)
     if form.validate_on_submit():
-        if form.mobile_phone.data.strip() is not None:
+        all_ok = True
+        if form.mobile_phone.data.strip() != "":
             duplicate_phone_user = User.query.filter(
                 and_(User.mobile_phone == form.mobile_phone.data, User.id != current_user.id))\
                 .first()
+            if duplicate_phone_user is not None:
+                flash_message = "That phone number is already used by another user."
+                all_ok = False
         if form.email.data.strip() is not None:
             duplicate_email_user = User.query.filter(
                 and_(User.email == form.email.data, User.id != current_user.id))\
                 .first()
-        if duplicate_phone_user:
-            flash_message = "That phone number is already used by another user."
-        elif duplicate_email_user:
-            flash_message = "That e-mail is already used by another user."
-        else:
+            if duplicate_email_user is not None:
+                flash_message = "That e-mail is already used by another user."
+                all_ok = False
+        if all_ok:
             form.populate_obj(user)
             db.session.commit()
             flash('You profile has been saved.', 'info')
