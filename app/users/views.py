@@ -104,6 +104,8 @@ def profile():
     if request.method == 'POST':
         form = UserProfileForm()
         initialise_profile_form(form)
+        form.mobile_phone.data = form.mobile_phone.data.strip()
+        form.email.data = form.email.data.strip()
     if form.validate_on_submit():
         all_ok = True
         if form.mobile_phone.data.strip() != "":
