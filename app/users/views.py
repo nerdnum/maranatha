@@ -2,6 +2,7 @@ from app import bcrypt, db
 from app.geography.utils import country_query, subdivision_by_country_query, populated_area_by_subdivision_query
 from app.messages.forms import MessageForm
 from app.messages.models import Message, UserMessage
+from app.messages.utils import create_welcome_message
 from app.users.forms import (RegisterForm, LoginForm, InviteUserForm, ChangePasswordForm,
                              ForgotPasswordForm, ForgotPasswordFormWithReset, UserProfileForm, ResetPasswordForm)
 from app.users.models import User
@@ -118,6 +119,9 @@ def profile():
             form.populate_obj(user)
             db.session.commit()
             flash('You profile has been saved.', 'info')
+            if user.login_count is None:
+                message_id = create_welcome_message(current_user.id)
+                return redirect(url_for('messages.view_messages', private=1, id=current_user.id))
             return render_template('profile.html', form=form)
         flash(flash_message, 'error')
     return render_template('profile.html', form=form)

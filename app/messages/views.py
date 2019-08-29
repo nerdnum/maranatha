@@ -37,11 +37,11 @@ def view_messages(private=None, id=None):
     return render_template('messages.html', messages=messages, private=private)
 
 
-@messages.route('/messages/view_message/<int:id>', methods=['GET'])
-@login_required
-def view_message(id):
-    message = Message.query.get(id)
-    return render_template('view_message.html', message=message)
+# @messages.route('/messages/view_message/<int:id>', methods=['GET'])
+# @login_required
+# def view_message(id):
+#     message = Message.query.get(id)
+#     return render_template('view_message.html', message=message)
 
 
 @messages.route('/messages/create_message', methods=['GET', 'POST'])

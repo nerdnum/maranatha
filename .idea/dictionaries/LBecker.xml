@@ -10,6 +10,7 @@
       <w>sendgrid</w>
       <w>sqlalchemy</w>
       <w>tablename</w>
+      <w>telecom</w>
       <w>twilio</w>
     </words>
   </dictionary>

@@ -18,10 +18,12 @@ def send_invitation(login, current_user):
     sender = app.config['USER_EMAIL_SENDER_EMAIL']
     app_name = app.config['USER_APP_NAME']
     accept_invitation_link = url_for('users.register_with_token', token=token, _external=True)
+    home_link = url_for('main.home', _external=True)
     if is_valid_email(login):
         message_html = render_template('emails/invite_user_message.html',
                                        user=current_user,
                                        accept_invitation_link=accept_invitation_link,
+                                       home_link=home_link,
                                        app_name=app_name)
         send_bulk_mail([login], sender, '{} invitation'.format(app_name),
                        message_html=message_html)
