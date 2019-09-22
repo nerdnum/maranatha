@@ -16,7 +16,7 @@ def send_broadcast_messages(message_id):
                        message.subject,  message_html=message_html)
 
     sms_users = User.query.filter(and_(User.is_active, User.prayer_requests_by_sms)).all()
-    link = url_for('messages.view_message', id=message_id, _external=True)
+    link = url_for('messages.view_messages', private=0, id=message_id, _external=True)
     for user in sms_users:
         message_text = render_template('sms/sms_message.txt', user=user, link=link)
         send_sms(user.mobile_phone, message_text)
