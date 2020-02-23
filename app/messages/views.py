@@ -11,6 +11,7 @@ from flask_login import current_user, login_required
 messages = Blueprint('messages', __name__, template_folder='templates')
 
 
+@messages.route('/', defaults={'private': 0, 'id': None})
 @messages.route('/messages', defaults={'private': 0, 'id': None})
 @messages.route('/messages/<int:private>/<int:id>')
 def view_messages(private=None, id=None):

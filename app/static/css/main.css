@@ -1,7 +1,7 @@
 body {
   background: #fafafa;
   color: #333333;
-  margin-top: 4rem;
+  margin-top: 4.5rem;
 }
 
 main {
@@ -10,6 +10,38 @@ main {
 
 h1, h2, h3, h4, h5, h6 {
   color: #444444;
+}
+
+.brand-heading {
+  text-align: center;
+  font-family: "Great Vibes";
+  font-size: 1.5em;
+}
+
+.image {
+  padding-bottom: 1em;
+}
+
+.outer-ul {
+  padding-left: 0;
+}
+
+li {
+  padding-bottom: 0.3em;
+}
+
+.card {
+  text-align: justify;
+}
+
+.card-title {
+  font-style: italic;
+}
+
+
+.card-subtitle {
+  font-weight: bolder;
+  padding-bottom: 0.2em;
 }
 
 .bg-steel {
@@ -33,9 +65,8 @@ h1, h2, h3, h4, h5, h6 {
   padding: 10px 20px;
   border: 1px solid #dddddd;
   border-radius: 3px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
-
 
 .login-container{
   margin: auto;

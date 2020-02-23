@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    {% from '_macros.html' import render_flash %}
+    <div class="container content-section">
+        {{ render_flash() }}
+
+         <h3 style="padding-bottom: 0.75em;">Our Values and Guiding Principles</h3>
+
+        <ol style="font-size: 1.2em">
+
+            <li>Jesus Christ alone is the head of this Movement.</li>
+
+            <li>God's Word, the Bible, will be the only manual, guide or source of guiding principles for the
+            prayer network.</li>
+
+            <li>We will not decide what to pray by relying on our own understanding. We will always ask
+            the Holy Spirit for guidance.</li>
+
+            <li>All glory belongs to God the Father, his Son Jesus and the Holy Spirit, who has chosen us for the
+            privilege to be his representatives in Namibia and work together with him to advance his kingdom.</li>
+        </ol>
+
+    <h4>What does this mean in practice?</h4>
+
+    <ul>
+        <li>This prayer network has no chairperson, steering committee or any form of appointed or elected
+        leadership. The Holy Spirit alone will lead and direct the prayer network.</li>
+        <li>The prayer network will not have any strategic plan that needs execution. The network will only
+        pray in obedience to the direction of the Holy Spirit.</li>
+        <li>The first group of twelve (Base 12) will serve as coordinators of the prayer network. They will collect all
+            "words", from wherever it originates in the prayer network. Once the "words" are collated, they will pray and
+            ask the Holy Spirit for clear instruction on which "words" need to be distributed to the complete network
+            for prayer.
+        </li>
+    </ul>
+
+{% endblock content %}
+
+{% block scripts %}
+    <script>
+    $(document).ready(function(){
+        $('[data-toggle="popover"]').popover();
+    });
+    </script>
+{% endblock scripts %}

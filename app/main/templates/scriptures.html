@@ -1,0 +1,59 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    {% from '_macros.html' import render_flash %}
+    <div class="container content-section">
+    {{ render_flash() }}
+
+    <div class="container">
+        <h3 style="padding-bottom: 0.75em;">Scriptures about prayer</h3>
+        <div class="row ">
+            <div class="col-sm-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Our prayers should always be guided by love. Love for God and love for your neighbours.</h5>
+                        <hr>
+                        <h6 class="card-subtitle">Matthew 6:9 - 10</h6>
+                        <p class="card-text">'Love the Lord your God with all your heart and with all your soul and with all your mind.'
+                        This is the first and greatest commandment. And the second is like it: 'Love your neighbor as yourself.'
+                        All the Law and the Prophets hang on these two commandments.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Pray that God's name be revered, that his kingdom will come and that his will be done.</h5>
+                        <hr>
+                        <h6 class="card-subtitle">Matthew 6:9 - 10</h6>
+                        <p class="card-text">This, then, is how you should pray: "'Our Father in heaven, hallowed be your name,
+                        your kingdom come, your will be done, on earth as it is in heaven.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 align-items-stretch">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Pray for leaders and that no one will be lost</h5>
+                        <hr>
+                        <h6 class="card-subtitle">1 Timothy 2:1 - 3</h6>
+                        <p class="card-text">I urge, then, first of all, that petitions, prayers, intercession and
+                            thanksgiving be made for all people-- for kings and all those in authority, that we may live
+                            peaceful and quiet lives in all godliness and holiness. This is good, and pleases God our Savior,
+                            who wants all people to be saved and to come to a knowledge of the truth. </p>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+
+{% block scripts %}
+    <script>
+    $(document).ready(function(){
+        $('[data-toggle="popover"]').popover();
+    });
+    </script>
+{% endblock scripts %}
