@@ -265,7 +265,7 @@ def team_members():
     enlister = User.query.filter_by(id=current_user.invited_by).first()
     partners = []
     if enlister is not None:
-        partners = User.query.filter_by(invited_by=enlister.id).order_by('first_name').all()
+        partners = User.query.filter_by(invited_by=enlister.id, is_active=True).order_by('first_name').all()
         for user in partners:
             if user.id == current_user.id:
                 partners.remove(user)
