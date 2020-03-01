@@ -270,7 +270,7 @@ def team_members():
             if user.id == current_user.id:
                 partners.remove(user)
         partners.append(enlister)
-    enlistees = User.query.filter_by(invited_by=current_user.id).all()
+    enlistees = User.query.filter_by(invited_by=current_user.id, is_active=True).all()
     form = MessageForm()
     if form.validate_on_submit():
         user_ids = form.user_list.data
