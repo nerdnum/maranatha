@@ -88,7 +88,7 @@ class UserView(ModelView):
     column_hide_backrefs = False
     form_display_pk = True
     column_display_pk = True
-    column_list = ['first_name', 'last_name', 'email', 'mobile_phone', 'is_active']
+    column_list = ['id', 'first_name', 'last_name', 'email', 'mobile_phone', 'is_active']
     form_excluded_columns = ['password']
 
 

@@ -46,9 +46,13 @@ def register_with_token(token):
     form = RegisterForm()
     token_manager = TokenManager(app)
     invited_by_id, login = token_manager.verify_token(token, expiration_in_seconds=app.config['INVITE_EXPIRATION_TIME'])
-    if form.validate_on_submit():
+    if invited_by_id is None or login is None:
+        flash('The token is invalid or has expired. Please ask the person who '
+              'sent the invitation to send a new invitation')
+    elif form.validate_on_submit():
         if form.login.data.lower() != login.lower():
-            flash('The login you used is invalid for this invitation or this invitation has expired.')
+            flash('The email address or phone number you used does not match the one of your invitation. Please '
+                  'check if you used the correct one.')
         else:
             user = User.query.filter(or_(
                 User.mobile_phone == form.login.data, User.email == form.login.data)).first()

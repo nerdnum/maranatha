@@ -1,8 +1,8 @@
 {% extends '_messages_base.html' %}
 
 {% block content %}
-    <div class="content-section">
-    {% from "_macros.html" import render_field, render_submit_field, render_radio_field %}
+    <div class="container content-section col-md-6 col-sm-12">
+    {% from "_macros.html" import render_field, render_submit_field, render_radio_field, render_textarea_field %}
     <form action="" method="POST" class="form" role="form">
         {{ form.hidden_tag() }}
         {{ render_field(form.subject) }}
@@ -11,3 +11,10 @@
     </form>
     </div>
 {% endblock content %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename="js/ckeditor/ckeditor.js") }}"></script>
+    <script>
+        CKEDITOR.replace('content');
+    </script>
+{% endblock scripts %}

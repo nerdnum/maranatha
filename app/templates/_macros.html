@@ -26,6 +26,14 @@
     </div>
 {% endmacro %}
 
+{% macro render_textarea_field(field, tabindex=None, note=None, hidden=False) %}
+    <div class="form-group {{ kwargs.pop('class_', '') }}">
+        <div class="from-control-label mb-0" {% if hidden %}style="display: none;"{% endif %}>{{ field.label.text }}</div>
+        <textarea class="form-control" {% if hidden %}style="display: none;"{% endif %}>
+        {{ field.data }}
+        </textarea>
+    </div>
+{% endmacro %}
 
 {% macro render_submit_field(field, tabindex=None) %}
     <div class="form-group {{ kwargs.pop('class_', '') }}">

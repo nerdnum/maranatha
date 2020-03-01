@@ -13,6 +13,10 @@
     <link href="https://fonts.googleapis.com/css?family=Great+Vibes&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
 
+
+
+
+
     {% if title %}
     <title>Maranatha Namibia - {{ title }}</title>
     {% else %}
@@ -102,6 +106,7 @@
 {% block precontent %}{% endblock precontent %}
 
 <main id="main_content">
+
 {% block content %}{% endblock content %}
 </main>
 
@@ -126,6 +131,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
+
 
 {% block scripts %}
 {% endblock scripts %}

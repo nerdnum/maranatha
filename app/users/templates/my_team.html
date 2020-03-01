@@ -75,7 +75,7 @@
 
     <div id="message_form" style="display: none">
         <hr>
-        <div class="col-sm-12 col-md-6">
+        <div class="col-sm-12 col-md-8">
             <form action="" method="POST" class="from-control">
                 {{ form.hidden_tag() }}
                 {{ render_field(form.user_list) }}
@@ -91,6 +91,12 @@
 {% endblock %}
 
 {% block scripts %}
+
+    <script src="{{ url_for('static', filename="js/ckeditor/ckeditor.js") }}"></script>
+    <script>
+        CKEDITOR.replace('content');
+    </script>
+
     <script type="text/javascript">
         function is_all_checked(prefix) {
             var allCheck = true;

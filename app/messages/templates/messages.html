@@ -1,12 +1,14 @@
 {% extends '_messages_base.html' %}
 
 {% block messages %}
+    <div class="container col-md-6 col-sm-12">
     <div>
     <h3>Messages</h3>
     </div>
     <div>
     {% if messages %}
     {% for message in messages %}
+
         <article class="media content-section">
             <div class="media-body">
                 <div class="article-metadata">
@@ -32,4 +34,5 @@
         </div>
         </div>
     {% endif %}
+    </div>
 {% endblock messages %}

@@ -11,9 +11,9 @@ from flask_login import current_user, login_required
 messages = Blueprint('messages', __name__, template_folder='templates')
 
 
-@messages.route('/', defaults={'private': 0, 'id': None})
 @messages.route('/messages', defaults={'private': 0, 'id': None})
 @messages.route('/messages/<int:private>/<int:id>')
+@login_required
 def view_messages(private=None, id=None):
     if private:
         if id != current_user.id:
@@ -77,4 +77,3 @@ def edit_message(id):
         return redirect(url_for('messages.view_messages', private=0, id=message.created_by))
 
     return render_template('edit_message.html', form=form)
-

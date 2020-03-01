@@ -9,7 +9,7 @@
 </head>
 <body>
     <p>Dear {{ user.first_name }}</p>
-    <p>{{ message.content }}</p>
+    {{ message.content|safe }}
     <p>Kind Regards</p>
     <p>Maranatha Namibia</p>
 </body>

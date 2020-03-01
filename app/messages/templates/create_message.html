@@ -1,8 +1,8 @@
 {% extends '_messages_base.html' %}
 
 {% block messages %}
-    <div class="content-section col-md-8 col-sm-12 m-auto">
-    {% from "_macros.html" import render_field, render_submit_field, render_checkbox_field%}
+    <div class="container content-section col-md-6 col-sm-12">
+    {% from "_macros.html" import render_field, render_submit_field, render_checkbox_field, render_textarea_field %}
     <form action="" method="POST" class="form" role="form">
         {{ form.hidden_tag() }}
         {{ render_checkbox_field(form.is_urgent) }}
@@ -12,3 +12,10 @@
     </form>
     </div>
 {% endblock messages %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename="js/ckeditor/ckeditor.js") }}"></script>
+    <script>
+        CKEDITOR.replace('content');
+    </script>
+{% endblock scripts %}
