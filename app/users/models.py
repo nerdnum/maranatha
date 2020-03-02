@@ -27,6 +27,7 @@ class User(db.Model, UserMixin):
     # User information
     is_active = db.Column('is_active', db.Boolean(), nullable=False, default=False)
     invited_by = db.Column(db.Integer(), db.ForeignKey('users.id'))
+    inviter = db.relationship('User', remote_side=[id])
 
     prayer_requests_by_email = db.Column(db.Boolean(), default=False, nullable=False)
     prayer_requests_by_sms = db.Column(db.Boolean(), default=False, nullable=False)
@@ -81,15 +82,16 @@ class User(db.Model, UserMixin):
         return has_role
 
     def __repr__(self):
-        return f"User({self.email}, {self.first_name} {self.last_name})"
+        return f"{self.id}: {self.first_name} {self.last_name}"
 
 
 class UserView(ModelView):
     column_hide_backrefs = False
     form_display_pk = True
     column_display_pk = True
-    column_list = ['id', 'first_name', 'last_name', 'email', 'mobile_phone', 'is_active']
+    column_list = ['id', 'first_name', 'last_name', 'email', 'inviter','mobile_phone', 'is_active']
     form_excluded_columns = ['password']
+    page_size = 50
 
 
 # Define the Role data model
@@ -116,4 +118,4 @@ class UserInvitation(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     login = db.Column(db.Unicode(255))
     invited_by_user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-
+    invited_by = db.relationship('User')
