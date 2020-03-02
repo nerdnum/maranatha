@@ -89,7 +89,7 @@ class UserView(ModelView):
     column_hide_backrefs = False
     form_display_pk = True
     column_display_pk = True
-    column_list = ['id', 'first_name', 'last_name', 'email', 'inviter.first_name', 'mobile_phone', 'is_active']
+    column_list = ['id', 'first_name', 'last_name', 'email', 'inviter', 'mobile_phone', 'is_active']
     form_excluded_columns = ['password']
     # column_searchable_list = ['first_name', 'last_name', 'email']
     column_filters = ['email', 'first_name', 'last_name', 'inviter.first_name', 'inviter.last_name']
