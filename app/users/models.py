@@ -93,7 +93,6 @@ class UserView(ModelView):
     form_excluded_columns = ['password']
     # column_searchable_list = ['first_name', 'last_name', 'email']
     column_filters = ['email', 'first_name', 'last_name', 'inviter.first_name', 'inviter.last_name']
-    column_editable_list = ['inviter']
     page_size = 50
 
 
