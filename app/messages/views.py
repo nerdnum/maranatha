@@ -7,6 +7,7 @@ from app.messages.utils import send_broadcast_messages
 from flask import Blueprint, render_template, redirect, url_for, request, Markup, flash
 from flask_login import current_user, login_required
 
+from sqlalchemy import or_
 
 messages = Blueprint('messages', __name__, template_folder='templates')
 
@@ -25,7 +26,7 @@ def view_messages(message_type=None, id=None):
         messages_title = "Your private messages"
         messages = db.session.query(Message).join(UserMessage) \
             .filter(Message.message_type == message_type) \
-            .filter(UserMessage.user_id == id) \
+            .filter(or_(UserMessage.user_id == id, Message.created_by == current_user.id)) \
             .order_by(Message.created_at.desc()).all()
     elif message_type == 2:
         messages_title = "Prayer Requests"

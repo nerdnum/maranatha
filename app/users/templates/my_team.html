@@ -78,7 +78,7 @@
         <div class="col-sm-12 col-md-8">
             <form action="" method="POST" class="from-control">
                 {{ form.hidden_tag() }}
-                {{ render_field(form.user_list) }}
+                {{ form.user_list }}
                 {{ render_field(form.subject) }}
                 {{ render_field(form.content) }}
                 {{ render_submit_field(form.submit) }}

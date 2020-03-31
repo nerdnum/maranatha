@@ -1,32 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="882d2ca5-99bd-4c7f-ace8-a6a43eb5772f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/main/templates/home_backup.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/main/templates/scriptures.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/main/templates/values.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/css/all.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/webfonts/fa-brands-400.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/webfonts/fa-brands-400.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/webfonts/fa-brands-400.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/webfonts/fa-brands-400.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/webfonts/fa-brands-400.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/webfonts/fa-regular-400.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/webfonts/fa-regular-400.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/webfonts/fa-regular-400.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/webfonts/fa-regular-400.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/webfonts/fa-regular-400.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/webfonts/fa-solid-900.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/webfonts/fa-solid-900.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/webfonts/fa-solid-900.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/webfonts/fa-solid-900.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/webfonts/fa-solid-900.woff2" afterDir="false" />
+    <list default="true" id="882d2ca5-99bd-4c7f-ace8-a6a43eb5772f" name="Default Changelist" comment="Edited user management screens">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/main/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/main/templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/messages/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/messages/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/users/templates/my_team.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/users/templates/my_team.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,51 +20,31 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Flask Main" />
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
+        <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>col-md-6</find>
-      <find>is_phone_login</find>
-      <find>recruited_by</find>
-      <find>print</find>
-      <find>console.log</find>
-      <find>cerulean</find>
-      <find>swatch</find>
-      <find>blue</find>
-      <find>blueprint</find>
-      <find>settin</find>
-      <find>view_messages.html</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>col-md-6 col-sm-12</replace>
-      <replace>invited_by</replace>
-    </replaceStrings>
-    <dirStrings>
-      <dir>E:\Dropbox\FlaskProjects\maranatha\app\users</dir>
-      <dir>E:\Dropbox\FlaskProjects\maranatha\app</dir>
-      <dir>E:\Dropbox\FlaskProjects\maranatha\app\static\js</dir>
-      <dir>C:\Users\lbecker\maranatha\Lib\site-packages\flask_admin</dir>
-      <dir>E:\Dropbox\FlaskProjects\maranatha\app\messages</dir>
-    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1XcuPyWk5ORf0fJJLGBT3GQ6ha0" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/main/templates" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/static/js" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -98,16 +57,16 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Dropbox\FlaskProjects\maranatha\app\static\js\editor_header" />
       <recent name="E:\Dropbox\FlaskProjects\maranatha\app\static" />
       <recent name="E:\Dropbox\FlaskProjects\maranatha\app\static\images" />
       <recent name="E:\Dropbox\FlaskProjects\maranatha\app\static\css" />
       <recent name="E:\Dropbox\FlaskProjects\maranatha\app\messages\templates" />
-      <recent name="E:\Dropbox\FlaskProjects\maranatha\app\users\templates" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Dropbox\FlaskProjects\maranatha\app\static\js" />
       <recent name="E:\Dropbox\FlaskProjects\maranatha\app\main\templates" />
       <recent name="E:\Dropbox\FlaskProjects\maranatha\app\static\css" />
-      <recent name="E:\Dropbox\FlaskProjects\maranatha\app\static\js" />
       <recent name="E:\Dropbox\FlaskProjects\maranatha\app\static\images" />
       <recent name="E:\Dropbox\FlaskProjects\maranatha\app" />
     </key>
@@ -217,7 +176,16 @@
       <workItem from="1582125087934" duration="614000" />
       <workItem from="1582177507711" duration="220000" />
       <workItem from="1582230513797" duration="621000" />
-      <workItem from="1582449261497" duration="14860000" />
+      <workItem from="1582449261497" duration="15923000" />
+      <workItem from="1582561940468" duration="3508000" />
+      <workItem from="1582565524373" duration="3514000" />
+      <workItem from="1582614882381" duration="596000" />
+      <workItem from="1582643013189" duration="731000" />
+      <workItem from="1582740920742" duration="4523000" />
+      <workItem from="1582904629267" duration="25779000" />
+      <workItem from="1583141987554" duration="9000" />
+      <workItem from="1583178420291" duration="4214000" />
+      <workItem from="1585670367360" duration="9511000" />
     </task>
     <task id="LOCAL-00001" summary="First commit of maranatha project">
       <created>1566811213786</created>
@@ -289,13 +257,98 @@
       <option name="project" value="LOCAL" />
       <updated>1569135865774</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Updated many pages in accordance with the slides submitted by Tim Marais.">
+      <created>1582490866636</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1582490866637</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Fixed some errors and added a proper editor to the site.">
+      <created>1583079328858</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1583079328858</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Fixed some errors and added a proper editor to the site.">
+      <created>1583081122499</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1583081122499</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Added ckeditor javascript files to github">
+      <created>1583081755584</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1583081755584</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Check for active users in Team Lists">
+      <created>1583083564658</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1583083564658</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Added ckeditor javascript files to github">
+      <created>1583083605281</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1583083605281</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Edited user management screens">
+      <created>1583180232123</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1583180232123</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Added filtering to user management">
+      <created>1583181457949</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1583181457949</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Fixed inviter column in user view">
+      <created>1583181774752</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1583181774752</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Made 'inviter' in user view editable">
+      <created>1583182076900</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1583182076900</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Removed making user editable">
+      <created>1583182566670</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1583182566670</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Fixed message landing to Broadcast messages when receiving an e-mail or SMS. Also improved the phone number validation on the invite screen. Added Prayer Requests as a message type.">
+      <created>1585679715076</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1585679715076</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="First commit of maranatha project" />
     <MESSAGE value="Fixed urgent message functionality" />
     <MESSAGE value="Added error page handling" />
@@ -306,35 +359,70 @@
     <MESSAGE value="Fixed duplicate empty email or password issue." />
     <MESSAGE value="Fixed '+264811234567' != '+26481234567 ' phone number issue." />
     <MESSAGE value="Fixed faulty url_for in send_broadcast_messages by changing to messages.view_messages (added 's') and adding 'private=0' parameter" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed faulty url_for in send_broadcast_messages by changing to messages.view_messages (added 's') and adding 'private=0' parameter" />
+    <MESSAGE value="Updated many pages in accordance with the slides submitted by Tim Marais." />
+    <MESSAGE value="Fixed some errors and added a proper editor to the site." />
+    <MESSAGE value="Check for active users in Team Lists" />
+    <MESSAGE value="Added ckeditor javascript files to github" />
+    <MESSAGE value="Edited user management screens" />
+    <MESSAGE value="Added filtering to user management" />
+    <MESSAGE value="Fixed inviter column in user view" />
+    <MESSAGE value="Made 'inviter' in user view editable" />
+    <MESSAGE value="Removed making user editable" />
+    <MESSAGE value="Fixed message landing to Broadcast messages when receiving an e-mail or SMS. Also improved the phone number validation on the invite screen. Added Prayer Requests as a message type." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed message landing to Broadcast messages when receiving an e-mail or SMS. Also improved the phone number validation on the invite screen. Added Prayer Requests as a message type." />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1877" height="448" key="GridCell.Tab.0.bottom" timestamp="1582477537779">
+    <state x="318" y="114" key="CommitChangelistDialog2" timestamp="1585679712824">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="448" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1582477537779" />
-    <state width="1877" height="448" key="GridCell.Tab.0.center" timestamp="1582477537779">
+    <state x="318" y="114" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1585679712824" />
+    <state width="1877" height="444" key="GridCell.Tab.0.bottom" timestamp="1585676090661">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="448" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1582477537779" />
-    <state width="1877" height="448" key="GridCell.Tab.0.left" timestamp="1582477537778">
+    <state width="1557" height="356" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1582777536139" />
+    <state width="1877" height="444" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1585676090661" />
+    <state width="1877" height="444" key="GridCell.Tab.0.center" timestamp="1585676090661">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="448" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1582477537778" />
-    <state width="1877" height="448" key="GridCell.Tab.0.right" timestamp="1582477537779">
+    <state width="1557" height="356" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1582777536139" />
+    <state width="1877" height="444" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1585676090661" />
+    <state width="1877" height="444" key="GridCell.Tab.0.left" timestamp="1585676090661">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="448" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1582477537779" />
-    <state x="594" y="306" key="com.intellij.ide.util.TipDialog" timestamp="1582450035255">
+    <state width="1557" height="356" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1582777536139" />
+    <state width="1877" height="444" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1585676090661" />
+    <state width="1877" height="444" key="GridCell.Tab.0.right" timestamp="1585676090661">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1557" height="356" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1582777536139" />
+    <state width="1877" height="444" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1585676090661" />
+    <state x="461" y="162" key="SettingsEditor" timestamp="1583070170387">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="162" key="SettingsEditor/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1583070170387" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1585679725386">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1585679725386" />
+    <state x="594" y="306" key="com.intellij.ide.util.TipDialog" timestamp="1585670369444">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="594" y="306" key="com.intellij.ide.util.TipDialog/-1920.0.1920.1040/-3520.0.1600.860/0.0.1920.1040@0.0.1920.1040" timestamp="1582177683857" />
-    <state x="495" y="253" key="com.intellij.ide.util.TipDialog/0.0.1600.860@0.0.1600.860" timestamp="1581585791058" />
-    <state x="594" y="306" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1582450035255" />
-    <state x="680" y="311" key="git4idea.merge.GitPullDialog" timestamp="1581357763277">
+    <state x="594" y="306" key="com.intellij.ide.util.TipDialog/-3520.0.1600.860/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1583141990625" />
+    <state x="495" y="253" key="com.intellij.ide.util.TipDialog/0.0.1600.860@0.0.1600.860" timestamp="1582740924830" />
+    <state x="594" y="306" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1585670369444" />
+    <state x="657" y="257" width="1211" height="708" key="find.popup" timestamp="1585676018205">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="680" y="311" key="git4idea.merge.GitPullDialog/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1581357763277" />
+    <state x="657" y="257" width="1211" height="708" key="find.popup/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1585676018205" />
+    <state x="680" y="311" key="git4idea.merge.GitPullDialog" timestamp="1582562667491">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="680" y="311" key="git4idea.merge.GitPullDialog/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1582562667491" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1583069620318">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1583069620318" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -348,6 +436,6 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/maranatha$maranatha.coverage" NAME="maranatha Coverage Results" MODIFIED="1582477537757" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/maranatha$maranatha.coverage" NAME="maranatha Coverage Results" MODIFIED="1585676090641" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
