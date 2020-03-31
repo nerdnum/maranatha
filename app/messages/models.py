@@ -10,8 +10,8 @@ class Message(db.Model):
     author = db.relationship('User')
     subject = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text, nullable=False)
-    is_private = db.Column(db.Boolean(), nullable=False, default=False)
     is_urgent = db.Column(db.Boolean(), nullable=False, default=False)
+    message_type = db.Column(db.Integer(), nullable=False, default=0)
 
     def __repr__(self):
         return f"Message('{self.subject}', '{self.created_at}')"

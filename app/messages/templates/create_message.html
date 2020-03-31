@@ -5,7 +5,9 @@
     {% from "_macros.html" import render_field, render_submit_field, render_checkbox_field, render_textarea_field %}
     <form action="" method="POST" class="form" role="form">
         {{ form.hidden_tag() }}
-        {{ render_checkbox_field(form.is_urgent) }}
+        {% if message_type == 0 %}
+            {{ render_checkbox_field(form.is_urgent) }}
+        {% endif %}
         {{ render_field(form.subject) }}
         {{ render_field(form.content) }}
         {{ render_submit_field(form.submit) }}

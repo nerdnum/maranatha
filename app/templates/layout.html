@@ -66,10 +66,12 @@
                                     Messages
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="{{ url_for('messages.view_messages') }}">View broadcast messages</a>
-                                    <a class="dropdown-item" href="{{ url_for('messages.view_messages', private=1, id=current_user.id) }}">View private messages</a>
+                                    <a class="dropdown-item" href="{{ url_for('messages.view_messages', message_type=0) }}">View broadcast messages</a>
+                                    <a class="dropdown-item" href="{{ url_for('messages.view_messages', message_type=2, id=current_user.id) }}">View prayer requests</a>
+                                    <a class="dropdown-item" href="{{ url_for('messages.view_messages', message_type=1, id=current_user.id) }}">View private messages</a>
                                     {% if current_user.has_role('messenger') %}
-                                        <a class="dropdown-item" href="{{ url_for('messages.create_message') }}">Create a new broadcast message</a>
+                                        <a class="dropdown-item" href="{{ url_for('messages.create_message', message_type=0) }}">Create a new broadcast message</a>
+                                        <a class="dropdown-item" href="{{ url_for('messages.create_message', message_type=2) }}">Create a prayer request</a>
                                     {% endif %}
                                 </div>
                             </li>

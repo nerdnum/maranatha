@@ -4,38 +4,36 @@ from app.messages.forms import MessageForm
 from app.messages.models import Message, UserMessage
 from app.messages.utils import send_broadcast_messages
 
-from flask import Blueprint, render_template, redirect, url_for, request, Markup
+from flask import Blueprint, render_template, redirect, url_for, request, Markup, flash
 from flask_login import current_user, login_required
 
 
 messages = Blueprint('messages', __name__, template_folder='templates')
 
 
-@messages.route('/messages', defaults={'private': 0, 'id': None})
-@messages.route('/messages/<int:private>/<int:id>')
+@messages.route('/messages', defaults={'message_type': 0, 'id': None})
+@messages.route('/messages/<int:message_type>/<int:id>')
 @login_required
-def view_messages(private=None, id=None):
-    if private:
-        if id != current_user.id:
-            messages = db.session.query(Message).join(UserMessage) \
-                .filter(Message.is_private)\
-                .filter(UserMessage.user_id == current_user.id)\
-                .filter(Message.created_by == id)\
-                .order_by(Message.created_at.desc()).all()
-        else:
-            messages = db.session.query(Message).join(UserMessage)\
-                .filter(Message.is_private)\
-                .filter(UserMessage.user_id == current_user.id)\
-                .order_by(Message.created_at.desc()).all()
-    else:
-        if id:
-            messages = db.session.query(Message).filter(Message.is_private == False)\
-                .filter(Message.created_by == id)\
-                .order_by(Message.created_at.desc()).all()
-        else:
-            messages = db.session.query(Message).filter(Message.is_private == False)\
-                .order_by(Message.created_at.desc()).all()
-    return render_template('messages.html', messages=messages, private=private)
+def view_messages(message_type=None, id=None):
+    # Message types: 0 - Broadcast Message, 1 - Private Message, 2 - Prayer Request
+    if message_type == 0:
+        messages_title = "Broadcast Messages"
+        messages = db.session.query(Message) \
+            .filter(Message.message_type == message_type) \
+            .order_by(Message.created_at.desc()).all()
+    elif message_type == 1:
+        messages_title = "Your private messages"
+        messages = db.session.query(Message).join(UserMessage) \
+            .filter(Message.message_type == message_type) \
+            .filter(UserMessage.user_id == id) \
+            .order_by(Message.created_at.desc()).all()
+    elif message_type == 2:
+        messages_title = "Prayer Requests"
+        messages = db.session.query(Message) \
+            .filter(Message.message_type == message_type) \
+            .order_by(Message.created_at.desc()).all()
+
+    return render_template('messages.html', messages_title= messages_title, messages=messages, message_type=message_type)
 
 
 # @messages.route('/messages/view_message/<int:id>', methods=['GET'])
@@ -44,22 +42,24 @@ def view_messages(private=None, id=None):
 #     message = Message.query.get(id)
 #     return render_template('view_message.html', message=message)
 
-
-@messages.route('/messages/create_message', methods=['GET', 'POST'])
+@messages.route('/messages/create_message', defaults={'message_type': 0}, methods=['GET', 'POST'])
+@messages.route('/messages/create_message/<int:message_type>', methods=['GET', 'POST'])
 @login_required
-def create_message():
+def create_message(message_type):
+    print(f'Received value {message_type}')
     form = MessageForm()
     if form.validate_on_submit():
         message = Message()
         form.populate_obj(message)
         message.created_by = current_user.id
+        message.message_type = message_type
         db.session.add(message)
         db.session.commit()
         message_id = message.id
         if form.is_urgent.data:
             send_broadcast_messages(message_id)
-        return redirect(url_for('messages.view_messages'))
-    return render_template('create_message.html', form=form)
+        return redirect(url_for('messages.view_messages', message_type=message_type, id=current_user.id))
+    return render_template('create_message.html', message_type=message_type, form=form)
 
 
 @messages.route('/messages/edit/<int:id>', methods=['GET', 'POST'])
@@ -72,8 +72,8 @@ def edit_message(id):
     if form.validate_on_submit():
         form.populate_obj(message)
         db.session.commit()
-        if message.is_private:
-            return redirect(url_for('messages.view_messages', private=1, id=current_user.id))
-        return redirect(url_for('messages.view_messages', private=0, id=message.created_by))
+        if message.message_type == 1:
+            return redirect(url_for('messages.view_messages', message_type=1, id=current_user.id))
+        return redirect(url_for('messages.view_messages', message_type=0, id=message.created_by))
 
     return render_template('edit_message.html', form=form)

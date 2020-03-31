@@ -132,7 +132,7 @@ def profile():
             flash('You profile has been saved.', 'info')
             if user.login_count is None:
                 message_id = create_welcome_message(current_user.id)
-                return redirect(url_for('messages.view_messages', private=1, id=current_user.id))
+                return redirect(url_for('messages.view_messages', message_type=1, id=current_user.id))
             return render_template('profile.html', form=form)
         flash(flash_message, 'error')
     return render_template('profile.html', form=form)
@@ -275,7 +275,7 @@ def team_members():
     if form.validate_on_submit():
         user_ids = form.user_list.data
         message = Message(subject=form.subject.data, content=form.content.data,
-                          is_private=True, created_by=current_user.id, is_urgent=False)
+                          message_type=1, created_by=current_user.id, is_urgent=False)
         db.session.add(message)
         db.session.commit()
         message_id = message.id

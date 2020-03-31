@@ -11,6 +11,8 @@ def phonenumber_validator(form, field):
         phone_number = phonenumbers.parse(field.data)
         if field.data[0] != '+':
             raise ValidationError("The submitted phone number should start with a '+'")
+        if ' ' in field.data:
+            raise ValidationError("The phone number should not contain any spaces.")
         if len(field.data) < 10:
             raise ValidationError("The submitted phone number is to short to be a valid mobile phone number")
     except phonenumbers.phonenumberutil.NumberParseException as error:
@@ -29,16 +31,17 @@ def user_exists_validator(form, field):
 def login_validator(form, field):
     is_valid_email = True
     email = Email()
-    try:
-        email(form, field)
-    except ValidationError as error:
-        is_valid_email = False
 
-    if not is_valid_email:
+    if "@" in field.data:
+        try:
+            email(form, field)
+        except ValidationError as error:
+            raise ValidationError(error)
+    else:
         try:
             phonenumber_validator(form, field)
         except ValidationError as error:
-            raise ValidationError('Invalid email address or phone number.')
+            raise ValidationError(error)
 
 
 class RegisterForm(FlaskForm):
@@ -86,7 +89,7 @@ class LoginForm(FlaskForm):
 
 
 class InviteUserForm(FlaskForm):
-    login = StringField('Email or Mobile Number', validators=[DataRequired(), user_exists_validator])
+    login = StringField('Email or Mobile Number', validators=[DataRequired(), user_exists_validator, login_validator])
     submit = StringField('Invite')
 
 
