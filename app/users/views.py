@@ -242,8 +242,10 @@ def invite_user():
     if form.validate_on_submit():
         user = get_user_by_login(form.login.data)
         if not user:
+            if ' ' in form.login.data:
+                form.login.data = form.login.data.replace(' ', '')
             send_invitation(form.login.data, current_user)
-            flash('The invitation was sent', 'info')
+            flash(f'The invitation was sent to {form.login.data}', 'info')
             return redirect(url_for('main.home'))
         else:
             flash('A user with that login information already exists.')
