@@ -1,0 +1,74 @@
+{% extends 'admin/master.html' %}
+
+{% from '_macros.html' import render_field, render_flash %}
+
+{% block messages %}
+    {{ render_flash() }}
+{% endblock messages %}
+
+{% block body %}
+    <h3>Upload user information</h3>
+    <p>Use this function to upload users. Each user will be added to the database and assigned the default password
+        you specify below. Depending on whether the user has an e-mail address or an mobile phone number, he or she will
+        be notified of the registration. They will also be provided the default password for them to log in.</p>
+    <h3>
+        The excel file must contain only <b>one sheet</b> that look as follows:
+    </h3>
+    <br/>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>First Name</th><th>Last Name</th><th>Mobile Phone</th><th>E-mail</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>John</td><td>Partrich</td><td>+264819874321</td><td>jp@example.com</td>
+
+            </tr>
+            <tr>
+                <td>Susan</td><td>Fourie</td><td>+264818764321</td><td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <div class="row">
+        <div class="col-md-6">
+            {{ render_field(form.password) }}
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-md-6 mb-3">
+            <div class="form-group mb-2">
+                 <label class="btn btn-default btn-primary btn-file col-md-3 mb-3">
+                        Select file <input class="hidden" type="file" name="{{ form.excel_file.id }}"></label>
+                 <span class="col-md-9"><input id="{{ form.excel_file.id }}" type="text" class="form-control"
+                              placeholder="Selected file"></span>
+
+            </div>
+        </div>
+    </div>
+        <br/>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <input class="btn btn-default btn-primary col-md-3" type="submit" value="{{ form.submit.label.text }}">
+            </div>
+        </div>
+    </div>
+
+    </form>
+{% endblock body %}
+
+
+{% block tail %}
+    <script>
+        var files;
+        $('input[name$="{{ form.excel_file.id }}"]').change(function(){
+            files= $('input[name$="{{ form.excel_file.id }}"]').prop('files');
+            $('#excel_file').val(files[0].name);
+        });
+    </script>
+{% endblock tail %}

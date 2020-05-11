@@ -4,6 +4,8 @@ from app.messages.forms import MessageForm
 from app.messages.models import Message, UserMessage
 from app.messages.utils import send_broadcast_messages
 
+from datetime import datetime
+
 from flask import Blueprint, render_template, redirect, url_for, request, Markup, flash
 from flask_login import current_user, login_required
 
@@ -54,6 +56,7 @@ def create_message(message_type):
         form.populate_obj(message)
         message.created_by = current_user.id
         message.message_type = message_type
+        message.created_at = datetime.datetime.utcnow()
         db.session.add(message)
         db.session.commit()
         message_id = message.id

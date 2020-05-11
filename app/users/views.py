@@ -4,16 +4,22 @@ from app.messages.forms import MessageForm
 from app.messages.models import Message, UserMessage
 from app.messages.utils import create_welcome_message
 from app.users.forms import (RegisterForm, LoginForm, InviteUserForm, ChangePasswordForm,
-                             ForgotPasswordForm, ForgotPasswordFormWithReset, UserProfileForm, ResetPasswordForm)
+                             ForgotPasswordForm, ForgotPasswordFormWithReset, UserProfileForm, ResetPasswordForm,
+                             UploadUsersForm)
 from app.users.models import User
 from app.users.utils import send_invitation, send_password_reset, get_user_by_login
 from app.utils import is_valid_email
 from app.token_manager import TokenManager
 from datetime import datetime
-from flask import Blueprint, render_template, redirect, url_for, flash, request
+from flask import Blueprint, render_template, redirect, url_for, flash, request, current_app
 from flask import current_app as app
+from flask_admin import BaseView, expose
+from flask_admin.contrib.sqla import ModelView
+from flask_admin.contrib.sqla.filters import BooleanEqualFilter
 from flask_login import logout_user, login_user, login_required, current_user
+import openpyxl
 from sqlalchemy import or_, and_, func
+from werkzeug.utils import secure_filename
 
 users = Blueprint('users', __name__, template_folder='templates')
 
@@ -300,3 +306,54 @@ def admin_view():
         return redirect(url_for('main.home'))
 
 
+class UserView(ModelView):
+    column_hide_backrefs = False
+    named_filter_urls = True
+    form_display_pk = True
+    column_display_pk = True
+    column_list = ['id', 'first_name', 'last_name', 'email', 'inviter', 'mobile_phone', 'is_active', 'is_bulk_invite']
+    form_excluded_columns = ['password']
+    # column_searchable_list = ['first_name', 'last_name', 'email']
+    column_filters = ['email', 'first_name', 'last_name', 'inviter.first_name', 'inviter.last_name']
+    page_size = 50
+
+
+class UserUploadView(BaseView):
+    @expose('/', methods=('GET', 'POST'))
+    def index(self):
+        form = UploadUsersForm()
+        if form.validate_on_submit():
+            hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+            excel_file = form.excel_file.data
+            try:
+                workbook = openpyxl.open(excel_file)
+                sheets = workbook.sheetnames
+                if len(sheets) == 1:
+                    name = workbook.sheetnames[0]
+                    sheet = workbook[name]
+                    row_iter = sheet.iter_rows()
+                    next(row_iter)
+                    headings = ['first_name', 'last_name', 'mobile_phone', 'email']
+                    while True:
+                        try:
+                            data = [cell.value for cell in next(row_iter)]
+                            data_dict = dict(zip(headings, data))
+                            user = User(**data_dict)
+                            user.password = hashed_password
+                            user.is_bulk_invite = True
+                            user.invited_by = current_user.id
+                            db.session.add(user)
+                        except StopIteration:
+                            break
+                    db.session.commit()
+                    flash('The file was successfully uploaded.')
+                    return self.render('admin/process_excel.html')
+                else:
+                    flash('Your Excel file has more than one sheet. Please remove the unnecessary sheets.')
+            except:
+                flash('The file content does not seem to be a valid Excel file. Please try again.', 'error')
+        else:
+            excel_file = form.excel_file.data
+            if excel_file is not None:
+                flash('The file does not seem to be a valid Excel file. Please try again.', 'error')
+        return self.render('admin/user_upload.html', form=form)

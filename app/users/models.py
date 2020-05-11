@@ -1,5 +1,5 @@
 from flask import current_app as app
-from flask_admin.contrib.sqla import ModelView
+
 from app import db, login_manager
 from flask_login import UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
@@ -27,6 +27,7 @@ class User(db.Model, UserMixin):
     # User information
     is_active = db.Column('is_active', db.Boolean(), nullable=False, default=False)
     invited_by = db.Column(db.Integer(), db.ForeignKey('users.id'))
+    is_bulk_invite = db.Column(db.Boolean(), default=False, nullable=False)
     inviter = db.relationship('User', remote_side=[id])
 
     prayer_requests_by_email = db.Column(db.Boolean(), default=False, nullable=False)
@@ -85,17 +86,6 @@ class User(db.Model, UserMixin):
         return f"{self.id}: {self.first_name} {self.last_name}"
 
 
-class UserView(ModelView):
-    column_hide_backrefs = False
-    form_display_pk = True
-    column_display_pk = True
-    column_list = ['id', 'first_name', 'last_name', 'email', 'inviter', 'mobile_phone', 'is_active']
-    form_excluded_columns = ['password']
-    # column_searchable_list = ['first_name', 'last_name', 'email']
-    column_filters = ['email', 'first_name', 'last_name', 'inviter.first_name', 'inviter.last_name']
-    page_size = 50
-
-
 # Define the Role data model
 class Role(db.Model):
     __tablename__ = 'roles'
@@ -121,3 +111,5 @@ class UserInvitation(db.Model):
     login = db.Column(db.Unicode(255))
     invited_by_user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     invited_by = db.relationship('User')
+
+

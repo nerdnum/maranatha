@@ -1,4 +1,4 @@
-from app import mail, mail_send_grid
+from app import mail, mail_send_grid, celery
 from flask import current_app as app
 from flask_mail import Message
 from twilio.rest import Client
@@ -26,10 +26,27 @@ def send_email(recipient, sender, subject, message_html):
     message = Message(subject=subject, recipients=[recipient],
                       sender=sender)
     message.html = message_html
-    mail.send(message)
+    send_async_mail.delay(message)
 
 
 def send_sms(mobile_number, message_body):
+    send_async_sms.delay(mobile_number, message_body)
+
+
+def send_bulk_mail(recipients, sender, subject, message_html):
+    message = Message(subject, sender=sender, recipients=recipients)
+    message.html = message_html
+    mail_send_grid.send(message)
+
+
+@celery.task
+def send_async_mail(message):
+    print('sending sync mail')
+    mail.send(message)
+
+
+@celery.task
+def send_async_sms(mobile_number, message_body):
     account_sid = app.config['TWILIO_ACCOUNT_SID']
     auth_token = app.config['TWILIO_AUTH_TOKEN']
 
@@ -39,9 +56,3 @@ def send_sms(mobile_number, message_body):
         .create(body=message_body,
                 from_='+12055831447',
                 to=mobile_number)
-
-
-def send_bulk_mail(recipients, sender, subject, message_html):
-    message = Message(subject, sender=sender, recipients=recipients)
-    message.html = message_html
-    mail_send_grid.send(message)

@@ -1,0 +1,11 @@
+{% extends 'admin/master.html' %}
+
+{% from '_macros.html' import render_field, render_flash %}
+
+{% block messages %}
+    {{ render_flash() }}
+{% endblock messages %}
+
+{% block body %}
+    <p>This is the content!</p>
+{% endblock body %}

@@ -1,5 +1,6 @@
 from app.users.models import User
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileRequired, FileAllowed
 import phonenumbers
 from sqlalchemy import func, or_
 from wtforms import ValidationError, StringField, PasswordField, SubmitField, BooleanField, SelectField
@@ -11,8 +12,6 @@ def phonenumber_validator(form, field):
         phone_number = phonenumbers.parse(field.data)
         if field.data[0] != '+':
             raise ValidationError("The submitted phone number should start with a '+'")
-        if ' ' in field.data:
-            raise ValidationError("The phone number should not contain any spaces.")
         if len(field.data) < 10:
             raise ValidationError("The submitted phone number is to short to be a valid mobile phone number")
     except phonenumbers.phonenumberutil.NumberParseException as error:
@@ -118,4 +117,11 @@ class ChangePasswordForm(FlaskForm):
                                          validators=[EqualTo('new_password',
                                                          'Password and Confirm Password did not match')])
     submit = SubmitField('Reset password')
+
+
+class UploadUsersForm(FlaskForm):
+    password = PasswordField('Default password', validators=[DataRequired()], default=False)
+    excel_file = FileField(validators=[FileRequired(), FileAllowed(['xlsx'])])
+    submit = SubmitField('Upload')
+
 

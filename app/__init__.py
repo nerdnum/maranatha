@@ -1,3 +1,4 @@
+from celery import Celery
 from flask import Flask
 from flask_admin import Admin, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
@@ -8,6 +9,7 @@ from flask_mail_sendgrid import MailSendGrid
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import CSRFProtect
+from app import settings
 
 
 db = SQLAlchemy()
@@ -18,6 +20,7 @@ admin = Admin(name="Maranatha Namibia", template_mode="bootstrap3", url="/nimda_
 login_manager = LoginManager()
 bcrypt = Bcrypt()
 mail_send_grid = MailSendGrid()
+celery = Celery(__name__, broker=settings.CELERY_BROKER)
 
 
 def create_app():
@@ -47,6 +50,8 @@ def create_app():
 
     admin.init_app(app)
 
+    celery.conf.update(app.config)
+
     # Load the main Blueprint
     from app.main.views import main
     app.register_blueprint(main)
@@ -70,9 +75,12 @@ def create_app():
 
 
 def add_admin_views():
-    from app.users.models import User, UserView, Role
+    from app.users.models import User, Role
+    from app.users.views import UserUploadView, UserView
     admin.add_view(UserView(User, db.session, category='Users'))
     admin.add_view(ModelView(Role, db.session, category='Users'))
+
+    admin.add_view(UserUploadView('Upload users', endpoint='Upload', category='Users'))
     admin.add_sub_category(name='User Management', parent_name='Users')
 
     from app.geography.models import Country, SubdivisionType, Subdivision, PopulatedAreaType, PopulatedArea

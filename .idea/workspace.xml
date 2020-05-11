@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="882d2ca5-99bd-4c7f-ace8-a6a43eb5772f" name="Default Changelist" comment="Edited user management screens">
+    <list default="true" id="882d2ca5-99bd-4c7f-ace8-a6a43eb5772f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/templates/admin/process_excel.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/templates/admin/user_upload.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/celery_worker.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/testing/test_openpyxl.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/celery/tasks.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/messages/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/messages/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/users/templates/my_team.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/users/templates/my_team.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/users/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/users/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/users/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/users/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,10 +29,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Flask Main" />
-        <option value="Python Script" />
-        <option value="HTML File" />
         <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -43,7 +52,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/static/js" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/templates/admin" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -56,6 +65,13 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Dropbox\FlaskProjects\maranatha\app\templates\admin" />
+      <recent name="E:\Dropbox\FlaskProjects\maranatha\app\static\js" />
+      <recent name="E:\Dropbox\FlaskProjects\maranatha\app\main\templates" />
+      <recent name="E:\Dropbox\FlaskProjects\maranatha\app\static\css" />
+      <recent name="E:\Dropbox\FlaskProjects\maranatha\app\static\images" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Dropbox\FlaskProjects\maranatha\app\static\js\editor_header" />
       <recent name="E:\Dropbox\FlaskProjects\maranatha\app\static" />
@@ -63,15 +79,30 @@
       <recent name="E:\Dropbox\FlaskProjects\maranatha\app\static\css" />
       <recent name="E:\Dropbox\FlaskProjects\maranatha\app\messages\templates" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\Dropbox\FlaskProjects\maranatha\app\static\js" />
-      <recent name="E:\Dropbox\FlaskProjects\maranatha\app\main\templates" />
-      <recent name="E:\Dropbox\FlaskProjects\maranatha\app\static\css" />
-      <recent name="E:\Dropbox\FlaskProjects\maranatha\app\static\images" />
-      <recent name="E:\Dropbox\FlaskProjects\maranatha\app" />
-    </key>
   </component>
   <component name="RunManager" selected="Flask server.maranatha">
+    <configuration name="test_openpyxl" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="maranatha" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/testing" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/testing/test_openpyxl.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="utils" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="maranatha" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -97,7 +128,7 @@
     <configuration name="maranatha" type="Python.FlaskServer">
       <option name="flaskDebug" value="true" />
       <module name="maranatha" />
-      <option name="target" value="$PROJECT_DIR$/run.py" />
+      <option name="target" value="$PROJECT_DIR$/celery_worker.py" />
       <option name="targetType" value="PATH" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -112,6 +143,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test_openpyxl" />
         <item itemvalue="Python.utils" />
       </list>
     </recent_temporary>
@@ -185,7 +217,10 @@
       <workItem from="1582904629267" duration="25779000" />
       <workItem from="1583141987554" duration="9000" />
       <workItem from="1583178420291" duration="4214000" />
-      <workItem from="1585670367360" duration="9511000" />
+      <workItem from="1585670367360" duration="10994000" />
+      <workItem from="1589033822564" duration="14416000" />
+      <workItem from="1589050674790" duration="13355000" />
+      <workItem from="1589215675467" duration="2638000" />
     </task>
     <task id="LOCAL-00001" summary="First commit of maranatha project">
       <created>1566811213786</created>
@@ -341,7 +376,21 @@
       <option name="project" value="LOCAL" />
       <updated>1585679715076</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Fixed 'hidden' User List label displaying on 'My Team' page.">
+      <created>1585681107644</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1585681107644</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Added the functionality to remove the spaces in phone numbers that were copied from an cell phones address book.">
+      <created>1585681931469</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1585681931469</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -369,48 +418,60 @@
     <MESSAGE value="Made 'inviter' in user view editable" />
     <MESSAGE value="Removed making user editable" />
     <MESSAGE value="Fixed message landing to Broadcast messages when receiving an e-mail or SMS. Also improved the phone number validation on the invite screen. Added Prayer Requests as a message type." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed message landing to Broadcast messages when receiving an e-mail or SMS. Also improved the phone number validation on the invite screen. Added Prayer Requests as a message type." />
+    <MESSAGE value="Fixed 'hidden' User List label displaying on 'My Team' page." />
+    <MESSAGE value="Added the functionality to remove the spaces in phone numbers that were copied from an cell phones address book." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added the functionality to remove the spaces in phone numbers that were copied from an cell phones address book." />
   </component>
   <component name="WindowStateProjectService">
-    <state x="318" y="114" key="CommitChangelistDialog2" timestamp="1585679712824">
+    <state x="719" y="329" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1589051281379">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="318" y="114" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1585679712824" />
-    <state width="1877" height="444" key="GridCell.Tab.0.bottom" timestamp="1585676090661">
+    <state x="719" y="329" key="#com.intellij.fileTypes.FileTypeChooser/1920.0.1600.860/0.0.1920.1040@0.0.1920.1040" timestamp="1589051281379" />
+    <state x="318" y="114" key="CommitChangelistDialog2" timestamp="1585681929871">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="318" y="114" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1585681929871" />
+    <state width="1877" height="444" key="GridCell.Tab.0.bottom" timestamp="1589216035842">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1557" height="356" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1582777536139" />
-    <state width="1877" height="444" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1585676090661" />
-    <state width="1877" height="444" key="GridCell.Tab.0.center" timestamp="1585676090661">
+    <state width="1877" height="444" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1585682480351" />
+    <state width="1877" height="444" key="GridCell.Tab.0.bottom/1920.0.1600.860/0.0.1920.1040@0.0.1920.1040" timestamp="1589216035842" />
+    <state width="1877" height="444" key="GridCell.Tab.0.center" timestamp="1589216035842">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1557" height="356" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1582777536139" />
-    <state width="1877" height="444" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1585676090661" />
-    <state width="1877" height="444" key="GridCell.Tab.0.left" timestamp="1585676090661">
+    <state width="1877" height="444" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1585682480351" />
+    <state width="1877" height="444" key="GridCell.Tab.0.center/1920.0.1600.860/0.0.1920.1040@0.0.1920.1040" timestamp="1589216035842" />
+    <state width="1877" height="444" key="GridCell.Tab.0.left" timestamp="1589216035842">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1557" height="356" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1582777536139" />
-    <state width="1877" height="444" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1585676090661" />
-    <state width="1877" height="444" key="GridCell.Tab.0.right" timestamp="1585676090661">
+    <state width="1877" height="444" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1585682480351" />
+    <state width="1877" height="444" key="GridCell.Tab.0.left/1920.0.1600.860/0.0.1920.1040@0.0.1920.1040" timestamp="1589216035842" />
+    <state width="1877" height="444" key="GridCell.Tab.0.right" timestamp="1589216035842">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1557" height="356" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1582777536139" />
-    <state width="1877" height="444" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1585676090661" />
-    <state x="461" y="162" key="SettingsEditor" timestamp="1583070170387">
+    <state width="1877" height="444" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1585682480351" />
+    <state width="1877" height="444" key="GridCell.Tab.0.right/1920.0.1600.860/0.0.1920.1040@0.0.1920.1040" timestamp="1589216035842" />
+    <state x="461" y="162" key="SettingsEditor" timestamp="1589049212479">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="162" key="SettingsEditor/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1583070170387" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1585679725386">
+    <state x="461" y="162" key="SettingsEditor/1920.0.1600.860/0.0.1920.1040@0.0.1920.1040" timestamp="1589049212479" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1585681941067">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1585679725386" />
-    <state x="594" y="306" key="com.intellij.ide.util.TipDialog" timestamp="1585670369444">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1585681941067" />
+    <state x="594" y="306" key="com.intellij.ide.util.TipDialog" timestamp="1589215677208">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="594" y="306" key="com.intellij.ide.util.TipDialog/-1920.0.1920.1040/-3520.0.1600.860/0.0.1920.1040@0.0.1920.1040" timestamp="1582177683857" />
     <state x="594" y="306" key="com.intellij.ide.util.TipDialog/-3520.0.1600.860/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1583141990625" />
     <state x="495" y="253" key="com.intellij.ide.util.TipDialog/0.0.1600.860@0.0.1600.860" timestamp="1582740924830" />
     <state x="594" y="306" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1585670369444" />
+    <state x="594" y="306" key="com.intellij.ide.util.TipDialog/1920.0.1600.860/0.0.1920.1040@0.0.1920.1040" timestamp="1589215677207" />
     <state x="657" y="257" width="1211" height="708" key="find.popup" timestamp="1585676018205">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -436,6 +497,7 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/maranatha$maranatha.coverage" NAME="maranatha Coverage Results" MODIFIED="1585676090641" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/maranatha$maranatha.coverage" NAME="maranatha Coverage Results" MODIFIED="1589215855827" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/maranatha$test_openpyxl.coverage" NAME="test_openpyxl Coverage Results" MODIFIED="1589131373929" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/testing" />
   </component>
 </project>
