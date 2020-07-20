@@ -23,7 +23,7 @@ def upload_verses():
                 verse = next(line_iter).strip()
                 next(line_iter).strip()
                 user = users[randint(0, len(users)-1)]
-                delta = timedelta(days=randint(0,60), hours=randint(0,23), minutes=randint(0,60))
+                delta = timedelta(days=randint(0, 60), hours=randint(0, 23), minutes=randint(0, 60))
                 time = datetime.utcnow() - delta
                 message = Message(subject=text, content=verse, created_by=user.id, created_at=time)
                 db.session.add(message)

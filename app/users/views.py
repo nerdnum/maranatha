@@ -4,22 +4,18 @@ from app.messages.forms import MessageForm
 from app.messages.models import Message, UserMessage
 from app.messages.utils import create_welcome_message
 from app.users.forms import (RegisterForm, LoginForm, InviteUserForm, ChangePasswordForm,
-                             ForgotPasswordForm, ForgotPasswordFormWithReset, UserProfileForm, ResetPasswordForm,
-                             UploadUsersForm)
-from app.users.models import User
+                             ForgotPasswordForm, ForgotPasswordFormWithReset, UserProfileForm, ResetPasswordForm)
+from app.users.models import User, UserInvitation
 from app.users.utils import send_invitation, send_password_reset, get_user_by_login
 from app.utils import is_valid_email
 from app.token_manager import TokenManager
 from datetime import datetime
-from flask import Blueprint, render_template, redirect, url_for, flash, request, current_app
+from flask import Blueprint, render_template, redirect, url_for, flash, request, jsonify
 from flask import current_app as app
-from flask_admin import BaseView, expose
-from flask_admin.contrib.sqla import ModelView
-from flask_admin.contrib.sqla.filters import BooleanEqualFilter
 from flask_login import logout_user, login_user, login_required, current_user
-import openpyxl
+import phonenumbers
 from sqlalchemy import or_, and_, func
-from werkzeug.utils import secure_filename
+
 
 users = Blueprint('users', __name__, template_folder='templates')
 
@@ -51,33 +47,35 @@ def register():
 def register_with_token(token):
     form = RegisterForm()
     token_manager = TokenManager(app)
-    invited_by_id, login = token_manager.verify_token(token, expiration_in_seconds=app.config['INVITE_EXPIRATION_TIME'])
-    if invited_by_id is None or login is None:
+    invited_by_id, invited_id = token_manager.verify_token(token, expiration_in_seconds=app.config['INVITE_EXPIRATION_TIME'])
+    if invited_by_id is None or invited_id is None:
         flash('The token is invalid or has expired. Please ask the person who '
               'sent the invitation to send a new invitation')
     elif form.validate_on_submit():
-        if form.login.data.lower() != login.lower():
+        invited_user = User.query.get(invited_id)
+        if invited_user.email:
+            log_in = invited_user.email
+        else:
+            log_in = invited_user.mobile_phone
+        if form.login.data.lower() != log_in.lower():
             flash('The email address or phone number you used does not match the one of your invitation. Please '
                   'check if you used the correct one.')
         else:
             user = User.query.filter(or_(
                 User.mobile_phone == form.login.data, User.email == form.login.data)).first()
-            if not user:
-                hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-                user = User(password=hashed_password, is_active=True, user_confirmed_at=datetime.utcnow(),
-                            invited_by=invited_by_id)
-                if is_valid_email(form.login.data):
-                    user.email = form.login.data
-                else:
-                    user.mobile_phone = form.login.data
-                db.session.add(user)
-                db.session.commit()
-                login_user(user, remember=False)
-                flash('Your account was successfully created. Please fill in your '
-                      'details below so that we can communicate effectively in the future.', 'success')
-                return redirect(url_for('users.profile'))
-            else:
-                flash('A user with that login already exists', 'danger')
+            hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+            user = User(password=hashed_password, is_active=True, user_confirmed_at=datetime.utcnow())
+            db.session.commit()
+            login_user(user, remember=False)
+            flash('Your account was successfully confirmed. Please fill in your '
+                  'details below so that we can communicate effectively in the future.', 'success')
+            return redirect(url_for('users.profile'))
+    else:
+        invited_user = User.query.get(invited_id)
+        if invited_user.email:
+            form.login.data = invited_user.email
+        else:
+            form.login.data = invited_user.mobile_phone
     return render_template('register.html', form=form)
 
 
@@ -136,7 +134,7 @@ def profile():
             form.populate_obj(user)
             db.session.commit()
             flash('You profile has been saved.', 'info')
-            if user.login_count is None:
+            if user.login_count == 1:
                 message_id = create_welcome_message(current_user.id)
                 return redirect(url_for('messages.view_messages', message_type=1, id=current_user.id))
             return render_template('profile.html', form=form)
@@ -144,9 +142,27 @@ def profile():
     return render_template('profile.html', form=form)
 
 
-@users.route('/user/login', methods=['GET', 'POST'])
-def login():
+@users.route('/user/login', defaults={'token': None},  methods=['GET', 'POST'])
+@users.route('/user/login/<string:token>', methods=['GET', 'POST'])
+def login(token=None):
     form = LoginForm()
+    if token:
+        token_manager = TokenManager(app)
+        invited_by_id, invited_id = \
+            token_manager.verify_token(token, expiration_in_seconds=app.config['INVITE_EXPIRATION_TIME'])
+        if invited_by_id is None or invited_id is None:
+            flash('Your invitation has expired. Please ask the person who '
+                  'sent the invitation to send a new invitation')
+        else:
+            user = User.query.get(invited_id)
+            if user:
+                if user.email:
+                    form.login.data = user.email
+                else:
+                    form.login.data = user.mobile_phone
+            else:
+                flash('Your invitation has expired. Please ask the person who '
+                     'sent the invitation to send a new invitation')
     if form.validate_on_submit():
         user = get_user_by_login(form.login.data)
         if user and bcrypt.check_password_hash(user.password, form.password.data):
@@ -157,6 +173,8 @@ def login():
                     user.login_count += 1
                 else:
                     user.login_count = 1
+                    flash('Please review your profile so that we can communicate with you effectively. Please ensure '
+                          'that you choose either e-mail or sms as an communication method.')
                 db.session.commit()
                 next_url = request.args.get('next', None)
                 if next_url:
@@ -246,15 +264,38 @@ def change_password():
 def invite_user():
     form = InviteUserForm()
     if form.validate_on_submit():
-        user = get_user_by_login(form.login.data)
+        submitted_login = form.login.data.strip().replace(' ', '')
+        user = get_user_by_login(submitted_login)
         if not user:
-            if ' ' in form.login.data:
-                form.login.data = form.login.data.replace(' ', '')
-            send_invitation(form.login.data, current_user)
-            flash(f'The invitation was sent to {form.login.data}', 'info')
+            invited_user = User()
+            is_phone_number = False
+            try:
+                phonenumber = phonenumbers.parse(form.login.data)
+                is_phone_number = True
+            except phonenumbers.phonenumberutil.NumberParseException as error:
+                pass
+            invited_user.first_name = form.first_name.data.strip()
+            invited_user.last_name = form.last_name.data.strip()
+            hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+            invited_user.password = hashed_password
+            invited_user.is_active = True
+            if is_phone_number:
+                invited_user.mobile_phone = form.login.data
+                invited_user.prayer_requests_by_sms = True
+                log_in = invited_user.mobile_phone
+            else:
+                invited_user.email = form.login.data
+                invited_user.prayer_requests_by_email
+                log_in = invited_user.email
+            invited_user.invited_at = datetime.utcnow()
+            invited_user.invited_by = current_user.id
+            db.session.add(invited_user)
+            db.session.commit()
+            send_invitation(log_in, is_phone_number, form.password.data, invited_user, current_user)
+            flash(f'The invitation was sent to {invited_user.first_name} {invited_user.last_name}', 'info')
             return redirect(url_for('main.home'))
         else:
-            flash('A user with that login information already exists.')
+            flash('A user with that login information already exists.', 'info')
     return render_template('invite.html', form=form)
 
 
@@ -296,64 +337,12 @@ def team_members():
     return render_template('my_team.html', enlister=enlister, partners=partners, enlistees=enlistees, form=form)
 
 
-@users.route('/user/admin')
+@users.route('/user/send_bulk_invitations/', methods=['POST'])
 @login_required
-def admin_view():
-    if current_user.has_any_role(['admin']):
-        return redirect(app.config['ADMIN_URL'])
-    else:
-        flash('You are not authorised to view do this.')
-        return redirect(url_for('main.home'))
+def send_bulk_invitations():
+    invitations = UserInvitation.query.filter_by(UserInvitation.invitation_sent is None)
+    for invitation in invitations:
+        print(invitation)
+    flash('All invitations submitted now and also all invitations not sent before are being sent now.')
+    return jsonify({'result': 'ok'})
 
-
-class UserView(ModelView):
-    column_hide_backrefs = False
-    named_filter_urls = True
-    form_display_pk = True
-    column_display_pk = True
-    column_list = ['id', 'first_name', 'last_name', 'email', 'inviter', 'mobile_phone', 'is_active', 'is_bulk_invite']
-    form_excluded_columns = ['password']
-    # column_searchable_list = ['first_name', 'last_name', 'email']
-    column_filters = ['email', 'first_name', 'last_name', 'inviter.first_name', 'inviter.last_name']
-    page_size = 50
-
-
-class UserUploadView(BaseView):
-    @expose('/', methods=('GET', 'POST'))
-    def index(self):
-        form = UploadUsersForm()
-        if form.validate_on_submit():
-            hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-            excel_file = form.excel_file.data
-            try:
-                workbook = openpyxl.open(excel_file)
-                sheets = workbook.sheetnames
-                if len(sheets) == 1:
-                    name = workbook.sheetnames[0]
-                    sheet = workbook[name]
-                    row_iter = sheet.iter_rows()
-                    next(row_iter)
-                    headings = ['first_name', 'last_name', 'mobile_phone', 'email']
-                    while True:
-                        try:
-                            data = [cell.value for cell in next(row_iter)]
-                            data_dict = dict(zip(headings, data))
-                            user = User(**data_dict)
-                            user.password = hashed_password
-                            user.is_bulk_invite = True
-                            user.invited_by = current_user.id
-                            db.session.add(user)
-                        except StopIteration:
-                            break
-                    db.session.commit()
-                    flash('The file was successfully uploaded.')
-                    return self.render('admin/process_excel.html')
-                else:
-                    flash('Your Excel file has more than one sheet. Please remove the unnecessary sheets.')
-            except:
-                flash('The file content does not seem to be a valid Excel file. Please try again.', 'error')
-        else:
-            excel_file = form.excel_file.data
-            if excel_file is not None:
-                flash('The file does not seem to be a valid Excel file. Please try again.', 'error')
-        return self.render('admin/user_upload.html', form=form)

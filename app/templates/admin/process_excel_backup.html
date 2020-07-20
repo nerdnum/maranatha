@@ -1,0 +1,115 @@
+{% extends 'admin/master.html' %}
+
+{% from '_macros.html' import render_field, render_flash %}
+
+{% block messages %}
+    {{ render_flash() }}
+{% endblock messages %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+            <h1 class="mb-5">Upload users</h1>
+                {% if rejected_records %}
+                    <h3>These records cannot be used.</h3>
+                    <table class="table table-bordered">
+                        <thead>
+                            <th>First name</th><th>Last name</th><th>Mobile phone</th><th>e-mail</th><th>Errors</th>
+                        </thead>
+                        <tbody>
+                            {% for invite in rejected_records %}
+                                <tr>
+                                    <td>{{ invite.first_name }}</td>
+                                    <td>{{ invite.last_name }}</td>
+                                    <td>{{ invite.mobile_phone }}</td>
+                                    <td>{{ invite.email }}</td>
+                                    <td>{{ invite.get_errors_in_html()|safe }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+                {% if duplicate_invites %}
+                    <h3 class="mt-20">There are already existing invitations for the following users.</h3>
+                    <table class="table table-bordered">
+                        <thead>
+                            <th>First name</th><th>Last name</th><th>Mobile phone</th><th>e-mail</th><th>Errors</th>
+                        </thead>
+                        <tbody>
+                            {% for invite in duplicate_invites %}
+                                <tr>
+                                    <td>{{ invite.first_name }}</td>
+                                    <td>{{ invite.last_name }}</td>
+                                    <td>{{ invite.mobile_phone }}</td>
+                                    <td>{{ invite.email }}</td>
+                                    <td>{{ invite.get_errors_in_html()|safe }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+                {% if rejected_records or duplicate_invites %}
+                    {% if only_duplicate_invites %}
+                        <form method="">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                            <h3>What should be done with the duplicate records?</h3>
+                            <input type="radio" name="duplicates" id="resend" value="resend_duplicates">
+                            <label for="resend">Resend duplicate invitations</label><br>
+                            <input type="radio" name="duplicates" id= "ignore" value="ignore_duplicates" checked>
+                            <label for="ignore">Ignore duplicate invitations</label><br>
+                            <button id="send_invitations" class="btn btn-primary" data-selector="resend">
+                                Send invitations</button>
+                        </form>
+                    {% else %}
+                        <a href="{{ url_for('upload.index') }}" class="btn btn-primary">
+                            Upload a different or corrected file</a>
+                    {% endif %}
+                {% endif %}
+                {% if show_send %}
+                    <form method="post" action="/">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                    </form>
+                    <p>There {{ 'are' if accepted_records|length > 1 else 'is' }} {{ accepted_records|length }}
+                    invitation{{ 's' if accepted_records|length != 1  else '' }} to be sent. Do you want to send
+                        the invitations now?</p>
+                        <button id="send_invitations" class="btn btn-danger">Yes</button>
+                    <a href="{{ url_for('admin.index') }}" class="btn btn-primary">No</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}
+
+{% block tail %}
+
+    <script type="text/javascript">
+        var csrf_token = "{{ csrf_token() }}";
+    </script>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/utils.js') }}"></script>
+
+    <script>
+        $("#send_invitations").click(function(event){
+
+            {% if only_duplicate_invites %}
+                var selected = $('input[name="duplicates"]:checked').val();
+            {% else %}
+                var selected = "no_duplicates";
+            {% endif %}
+
+            alert(selected);
+
+            {#$.ajax({#}
+            {#    type: 'POST',#}
+            {#    url: '/user/send_bulk_invitations/'})#}
+            {#.then(function(data){#}
+            {#    window.location.href = "{{  url_for('admin.index') }}";#}
+            {# });#}
+        });
+    </script>
+
+
+
+{% endblock tail %}

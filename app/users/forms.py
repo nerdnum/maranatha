@@ -1,6 +1,6 @@
 from app.users.models import User
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileRequired, FileAllowed
+
 import phonenumbers
 from sqlalchemy import func, or_
 from wtforms import ValidationError, StringField, PasswordField, SubmitField, BooleanField, SelectField
@@ -44,10 +44,9 @@ def login_validator(form, field):
 
 
 class RegisterForm(FlaskForm):
-    login = StringField('Email or Mobile Phone Number', validators=[DataRequired(),
-                                                                    login_validator])
-    password = PasswordField('Password', validators=[DataRequired()], default=False)
-    password_confirm = PasswordField('Confirm Password',
+    login = StringField('Log in', validators=[DataRequired()])
+    password = PasswordField('Please select a new password', validators=[DataRequired()], default=False)
+    password_confirm = PasswordField('Confirm new password',
                                      validators=[EqualTo('password',
                                                          'Password and Confirm Password did not match')])
     submit = SubmitField('Submit')
@@ -88,7 +87,11 @@ class LoginForm(FlaskForm):
 
 
 class InviteUserForm(FlaskForm):
-    login = StringField('Email or Mobile Number', validators=[DataRequired(), user_exists_validator, login_validator])
+    first_name = StringField('First Name', validators=[DataRequired()])
+    last_name = StringField('Last Name', validators=[DataRequired()])
+    login = StringField('Email or Mobile Number (Will be used to log in)',
+                        validators=[DataRequired(), user_exists_validator, login_validator])
+    password = StringField('Password', validators=[DataRequired()])
     submit = StringField('Invite')
 
 
@@ -119,9 +122,6 @@ class ChangePasswordForm(FlaskForm):
     submit = SubmitField('Reset password')
 
 
-class UploadUsersForm(FlaskForm):
-    password = PasswordField('Default password', validators=[DataRequired()], default=False)
-    excel_file = FileField(validators=[FileRequired(), FileAllowed(['xlsx'])])
-    submit = SubmitField('Upload')
+
 
 

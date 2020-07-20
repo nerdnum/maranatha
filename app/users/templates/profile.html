@@ -51,8 +51,11 @@
 {% endblock userform %}
 
 {% block scripts %}
+
     <script type="text/javascript">
         var csrf_token = "{{ csrf_token() }}";
     </script>
+
     <script type="text/javascript" src="{{ url_for('static', filename='js/utils.js') }}"></script>
+
 {% endblock scripts %}

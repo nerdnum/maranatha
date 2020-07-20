@@ -1,6 +1,7 @@
 {% extends 'sms/base_message.txt' %}
 {% block message %}
-{{ user.first_name }} {{ user.last_name }} is inviting you to join the Maranatha Namibia prayer network.
-To register, please click on the link below and use your mobile number for your login:
+Dear {{ invited_user.first_name }} {{ invited_user.last_name }}, you are invited to join the
+Maranatha Namibia prayer network.
+To proceed, please click on the link below. Your password is "{{ password }}"
 {{ accept_invitation_link }}
 {% endblock %}

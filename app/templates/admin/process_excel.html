@@ -7,5 +7,35 @@
 {% endblock messages %}
 
 {% block body %}
-    <p>This is the content!</p>
+    <div id="main_container">
+    </div>
+    <div id="json_container">
+        <div class="col-md-12">
+            <pre id="json">
+            </pre>
+        </div>
+    </div>
 {% endblock body %}
+
+{% block tail %}
+
+    <script type="text/javascript">
+        let csrf_token = "{{ csrf_token() }}";
+    </script>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/invitation_utils.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/vendor/jquery.loadTemplate.min.js') }}"></script>
+
+    <script>
+
+        $( document ).ready(function() {
+            let selected = {{ submitted_data|safe }};
+            {#$('#json').text(JSON.stringify(selected, undefined, 2));#}
+            if (Object.keys(selected.invalid_invitations).length > 0) {
+                do_page_setup($("#main_container"), selected);
+            };
+        });
+
+    </script>
+
+{% endblock tail %}

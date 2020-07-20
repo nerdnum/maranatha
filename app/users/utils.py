@@ -12,29 +12,36 @@ def get_user_by_login(submitted_login):
     return user
 
 
-def send_invitation(login, current_user):
+def send_invitation(log_in, is_phone_number, password, invited_user, current_user):
     token_manager = TokenManager(app)
-    token = token_manager.generate_token(current_user.id, login)
+    token = token_manager.generate_token(current_user.id, invited_user.id)
     sender = app.config['USER_EMAIL_SENDER_EMAIL']
     app_name = app.config['USER_APP_NAME']
-    accept_invitation_link = url_for('users.register_with_token', token=token, _external=True)
+    next_url = url_for('users.profile')
+    accept_invitation_link = url_for('users.login', next=next_url, token=token, _external=True)
+    accept_invitation_link = accept_invitation_link.replace('http://127.0.0.1:5000', app.config['NGROK'])
     home_link = url_for('main.home', _external=True)
-    if is_valid_email(login):
+    if not is_phone_number:
         message_html = render_template('emails/invite_user_message.html',
+                                       invited_user=invited_user,
+                                       password=password,
                                        user=current_user,
                                        accept_invitation_link=accept_invitation_link,
                                        home_link=home_link,
                                        app_name=app_name)
-        send_bulk_mail([login], sender, '{} invitation'.format(app_name),
+        send_bulk_mail([invited_user.email], sender, '{} invitation'.format(app_name),
                        message_html=message_html)
     else:
-        accept_invitation_link = url_for('users.register_with_token', token=token,
-                                             _external=True)
+        # accept_invitation_link = url_for('users.login', next=next_url, token=token,
+        #                                  _external=True)
+
         message_body = render_template('sms/invite_user_message.txt',
+                                       invited_user=invited_user,
+                                       password=password,
                                        user=current_user,
                                        accept_invitation_link=accept_invitation_link,
                                        app_name=app_name)
-        send_sms(login, message_body)
+        send_sms(invited_user.mobile_phone, message_body)
 
 
 def send_password_reset(login):

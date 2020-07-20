@@ -2,6 +2,8 @@
 
 {% block messages %}
     <div class="container col-md-6 col-sm-12">
+    {% from '_macros.html' import render_flash %}
+    {{ render_flash() }}
     <div>
     <h3>{{ messages_title }}</h3>
     </div>

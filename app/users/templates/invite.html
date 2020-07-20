@@ -8,9 +8,12 @@
     <form id="register" method="POST" action="">
     {{ form.hidden_tag() }}
     <div class="row">
-        {{ render_field(form.login, tabindex=10,
+        {{ render_field(form.first_name, tabindex=20, class_="col-12") }}
+        {{ render_field(form.last_name, tabindex=30, class_="col-12") }}
+        {{ render_field(form.login, tabindex=40,
                         class_="col-12",
                         note="International phone number format: +264811234567") }}
+        {{ render_field(form.password, tabindex=50, class_="col-12") }}
     </div>
         {{ render_submit_field(form.submit, tabindex=100) }}
     </form>

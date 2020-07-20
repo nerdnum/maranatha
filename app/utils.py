@@ -34,14 +34,11 @@ def send_sms(mobile_number, message_body):
 
 
 def send_bulk_mail(recipients, sender, subject, message_html):
-    message = Message(subject, sender=sender, recipients=recipients)
-    message.html = message_html
-    mail_send_grid.send(message)
+    send_async_bulk_mail.delay(recipients, sender, subject, message_html)
 
 
 @celery.task
 def send_async_mail(message):
-    print('sending sync mail')
     mail.send(message)
 
 
@@ -56,3 +53,10 @@ def send_async_sms(mobile_number, message_body):
         .create(body=message_body,
                 from_='+12055831447',
                 to=mobile_number)
+
+
+@celery.task
+def send_async_bulk_mail(recipients, sender, subject, message_html):
+    message = Message(subject, sender=sender, recipients=recipients)
+    message.html = message_html
+    mail_send_grid.send(message)

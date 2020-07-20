@@ -2,12 +2,17 @@
 
 {% block message %}
 
+<p>
+    Dear {{ invited_user.first_name }} {{ invited_user.last_name }}
+</p>
+
 <p>{{ user.first_name }} {{ user.last_name }} is inviting you to
     join the Maranatha Namibia prayer network.</p>
 
 <p>If you want to learn more about Maranatha Namibia please click <a href="{{ home_link }}">here</a>.</p>
 
-<p>To register, please click on the link below and use your e-mail address for your login.<br/>
+<p>To complete registration, please click on the link below and use your e-mail address for your login.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ accept_invitation_link }}">Join {{ app_name }}</a>.</p>
+<p>Your password is: "{{ password }}"</p>
 
 {% endblock %}

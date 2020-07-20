@@ -1,9 +1,8 @@
 from celery import Celery
 from flask import Flask
-from flask_admin import Admin, AdminIndexView
-from flask_admin.contrib.sqla import ModelView
+from flask_admin import Admin
 from flask_bcrypt import Bcrypt
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
 from flask_mail import Mail
 from flask_mail_sendgrid import MailSendGrid
 from flask_migrate import Migrate
@@ -16,7 +15,7 @@ db = SQLAlchemy()
 migrate = Migrate()
 mail = Mail()
 csrf_protect = CSRFProtect()
-admin = Admin(name="Maranatha Namibia", template_mode="bootstrap3", url="/nimda_aram")
+admin = Admin(name="Maranatha Namibia", template_mode="bootstrap3")
 login_manager = LoginManager()
 bcrypt = Bcrypt()
 mail_send_grid = MailSendGrid()
@@ -28,6 +27,8 @@ def create_app():
 
     # Get setting from the setting file
     app.config.from_object('app.settings')
+
+    app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 
     # Set up the database
     db.init_app(app)
@@ -48,7 +49,8 @@ def create_app():
 
     mail_send_grid.init_app(app)
 
-    admin.init_app(app)
+    from app.app_admin.views import AuthenticatedAdminIndexView
+    admin.init_app(app, index_view=AuthenticatedAdminIndexView(endpoint='admin'))
 
     celery.conf.update(app.config)
 
@@ -69,26 +71,9 @@ def create_app():
     from app.errors.handlers import errors
     app.register_blueprint(errors)
 
-    add_admin_views()
+    from app.app_admin.views import app_admin, add_admin_views
+    add_admin_views(admin)
 
     return app
 
-
-def add_admin_views():
-    from app.users.models import User, Role
-    from app.users.views import UserUploadView, UserView
-    admin.add_view(UserView(User, db.session, category='Users'))
-    admin.add_view(ModelView(Role, db.session, category='Users'))
-
-    admin.add_view(UserUploadView('Upload users', endpoint='Upload', category='Users'))
-    admin.add_sub_category(name='User Management', parent_name='Users')
-
-    from app.geography.models import Country, SubdivisionType, Subdivision, PopulatedAreaType, PopulatedArea
-    admin.add_view(ModelView(Country, db.session, category='Geo'))
-    admin.add_view(ModelView(SubdivisionType, db.session, category='Geo'))
-    admin.add_view(ModelView(Subdivision, db.session, category='Geo'))
-    admin.add_view(ModelView(PopulatedAreaType, db.session, category='Geo'))
-    admin.add_view(ModelView(PopulatedArea, db.session, category='Geo'))
-
-    admin.add_sub_category(name='Geo', parent_name='Geo')
 
